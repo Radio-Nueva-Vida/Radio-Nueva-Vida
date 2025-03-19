@@ -11,3 +11,7 @@ $(document).ready(function() {
         console.log("Reproducción pausada");
     };
 });
+$(document).ready(function() {
+    $('#title').hide().fadeIn(2000); // El título aparecerá con un efecto de desvanecimiento
+});
+
