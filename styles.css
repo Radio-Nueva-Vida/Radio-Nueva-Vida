@@ -43,6 +43,12 @@ body, html {
     height: auto; /* Permite espacio adicional */
 }
 
+audio {
+    width: 80%; /* Haz que el reproductor sea más amplio */
+    max-width: 600px; /* Limita el tamaño */
+    border-radius: 10px; /* Agrega esquinas redondeadas */
+}
+
 footer {
     position: absolute;
     bottom: 20px;
