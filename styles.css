@@ -1,0 +1,56 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: url('https://assets.onecompiler.app/43c5d9wb7/43c88vhph/DeWatermark.ai_1742346829545.png') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#header-section {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+#title {
+    font-size: 2.5em;
+    margin: 0;
+    color: white;
+}
+
+#slogan {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: white;
+}
+
+#player-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Mueve el reproductor hacia abajo */
+    margin-top: 490px; /* Ajusta este valor según sea necesario para despejar el dibujo */
+    height: auto; /* Permite espacio adicional */
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+#social-icons img {
+    width: 40px;
+    margin: 0 10px;
+}
