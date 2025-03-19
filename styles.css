@@ -3,7 +3,7 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     text-align: center;
-    background: url('https://assets.onecompiler.app/43c5d9wb7/43c88vhph/DeWatermark.ai_1742346829545.png') no-repeat center center fixed;
+    background: url('DeWatermark.ai_1742346829545.png') no-repeat center center fixed;
     background-size: cover;
     color: white;
 }
