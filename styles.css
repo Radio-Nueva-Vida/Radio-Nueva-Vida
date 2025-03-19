@@ -5,7 +5,7 @@ body, html {
     text-align: center;
     background: url('DeWatermark.ai_1742346829545.png') no-repeat center center fixed;
     background-size: cover;
-    color: white;
+    color: Black;
 }
 
 #container {
@@ -24,13 +24,13 @@ body, html {
 }
 
 #title {
-    font-size: 2.5em;
+    font-size: 4.5em;
     margin: 0;
-    color: white;
+    color: Blue;
 }
 
 #slogan {
-    font-size: 1.2em;
+    font-size: 2.7em;
     margin: 10px 0;
     color: white;
 }
@@ -39,7 +39,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Mueve el reproductor hacia abajo */
-    margin-top: 490px; /* Ajusta este valor según sea necesario para despejar el dibujo */
+    margin-top: 525px; /* Ajusta este valor según sea necesario para despejar el dibujo */
     height: auto; /* Permite espacio adicional */
 }
 
