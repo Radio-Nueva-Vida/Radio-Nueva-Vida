@@ -1,11 +1,13 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Impact, sans-serif;
+    font-family: Arial, sans-serif;
     text-align: center;
-    background: url('https://github.com/Radio-Nueva-Vida/Radio-Nueva-Vida/blob/b8a24a737e58fb9a26a87e02a7c366a17ba3e439/wallpaperbetter.com_2560x1080.png') no-repeat center center fixed;
+    background: url('https://assets.onecompiler.app/43c5d9wb7/43c88vhph/DeWatermark.ai_1742346829545.png') no-repeat center center fixed;
     background-size: cover;
-    color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: Blue;
 }
 
 #container {
@@ -24,22 +26,25 @@ body, html {
 }
 
 #title {
-    font-size: 7.5em;
-    margin: 0;
-    color: white;
+    font-size: 8rem; /* Aumenta el tamaño */
+    color: #ff5722; /* Color llamativo */
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin: 10px 0;
 }
 
 #slogan {
-    font-size: 3.7em;
-    margin: 10px 0;
-    color: white;
+    font-size: 1.5rem; /* Un poco más pequeño */
+    color: #555; /* Color secundario */
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 #player-section {
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Mueve el reproductor hacia abajo */
-    margin-top: 600px; /* Ajusta este valor según sea necesario para despejar el dibujo */
+    margin-top: 490px; /* Ajusta este valor según sea necesario para despejar el dibujo */
     height: auto; /* Permite espacio adicional */
 }
 
