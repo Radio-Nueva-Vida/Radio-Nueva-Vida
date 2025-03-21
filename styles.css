@@ -1,0 +1,67 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: url('https://i.ibb.co/Lhqg1H8R/wallpaperbetter-com-2560x1080-1.png') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: Blue;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#header-section {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+#title {
+    font-size: 8rem; /* Aumenta el tamaño */
+    color: #ff5722; /* Color llamativo */
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin: 10px 0;
+}
+
+#slogan {
+    font-size: 1.5rem; /* Un poco más pequeño */
+    color: #555; /* Color secundario */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#player-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Mueve el reproductor hacia abajo */
+    margin-top: 490px; /* Ajusta este valor según sea necesario para despejar el dibujo */
+    height: auto; /* Permite espacio adicional */
+}
+
+audio {
+    width: 80%; /* Haz que el reproductor sea más amplio */
+    max-width: 600px; /* Limita el tamaño */
+    border-radius: 10px; /* Agrega esquinas redondeadas */
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+#social-icons img {
+    width: 40px;
+    margin: 0 10px;
+}
