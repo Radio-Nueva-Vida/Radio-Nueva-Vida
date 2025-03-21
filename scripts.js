@@ -18,6 +18,6 @@ $(document).ready(function() {
     console.log("Página de Radio Nueva Vida cargada correctamente.");
     
     // Agregar un mensaje de bienvenida al cargar la página
-    $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Bienvenido a nuestra radio. ¡Disfruta de nuestra programación!</p>');
+    $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Escucha la mejor música cristiana online. ¡Todo el Día...Junto a Vos!</p>');
 });
 
