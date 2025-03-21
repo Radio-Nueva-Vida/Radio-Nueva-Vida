@@ -44,7 +44,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Mueve el reproductor hacia abajo */
-    margin-top: 520px; /* Ajusta este valor según sea necesario para despejar el dibujo */
+    margin-top: 550px; /* Ajusta este valor según sea necesario para despejar el dibujo */
     height: auto; /* Permite espacio adicional */
 }
 
