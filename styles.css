@@ -41,6 +41,15 @@ body, html {
     margin-bottom: 10px;
 }
 
+#cstrFreePlayerDiv {
+    width: 300px; /* Ajusta el ancho deseado */
+    height: 80px; /* Ajusta el alto deseado */
+    margin: 0 auto; /* Centra horizontalmente */
+    position: relative; /* Asegura que puedas usar propiedades como top/left si lo necesitas */
+    top: 20%; /* Ajusta verticalmente (opcional) */
+    background-color: #f0f0f0; /* Color de fondo opcional */
+  }
+
 footer {
     position: absolute;
     bottom: 20px;
