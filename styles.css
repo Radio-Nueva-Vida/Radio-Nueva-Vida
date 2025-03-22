@@ -41,20 +41,6 @@ body, html {
     margin-bottom: 10px;
 }
 
-#player-section {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Mueve el reproductor hacia abajo */
-    margin-top: 560px; /* Ajusta este valor según sea necesario para despejar el dibujo */
-    height: auto; /* Permite espacio adicional */
-}
-
-audio {
-    width: 80%; /* Haz que el reproductor sea más amplio */
-    max-width: 600px; /* Limita el tamaño */
-    border-radius: 10px; /* Agrega esquinas redondeadas */
-}
-
 footer {
     position: absolute;
     bottom: 20px;
