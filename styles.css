@@ -42,16 +42,16 @@ body, html {
 }
 
 #cstrFreePlayerDiv {
-    width: 850px; /* Ajusta el ancho deseado */
-    height: 135px; /* Ajusta el alto deseado */
+    width: 850px; /* Ancho del reproductor */
+    height: 135px; /* Alto del reproductor */
     margin: 0 auto; /* Centra horizontalmente */
-    position: absolute; /* Cambia de relative a absolute */
-    top: 50%; /* Posiciona verticalmente al centro de la página */
-    transform: translateY(-50%); /* Corrige para centrar exactamente */
-    background-color: #f0f0f0; /* Color de fondo opcional */
-    z-index: 1; /* Asegúrate de que esté en una capa superior */
+    position: absolute;
+    top: calc(50% + 5cm); /* Baja el reproductor 5 cm desde el centro */
+    left: 50%; /* Posiciona horizontalmente al centro */
+    transform: translate(-50%, -50%); /* Corrige la alineación perfecta */
+    background-color: #f0f0f0; /* Opcional: color de fondo */
+    z-index: 1; /* Asegura que esté en una capa visible */
 }
-
 
 footer {
     position: absolute;
