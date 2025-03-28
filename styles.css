@@ -42,12 +42,12 @@ body, html {
 }
 
 #cstrFreePlayerDiv {
-    width: 850px; /* Ajusta el ancho deseado */
-    height: 135px; /* Ajusta el alto deseado */
-    margin: 0 auto; /* Centra horizontalmente */
-    position: relative; /* Asegura que puedas usar propiedades como top/left si lo necesitas */
-    top: 50%; /* Ajusta verticalmente (opcional) */
-    background-color: #f0f0f0; /* Color de fondo opcional */
+    width: 850px; 
+    height: 135px; 
+    margin: 0 auto; 
+    position: absolute;
+    top: 50%; 
+    background-color: #f0f0f0; 
   }
 
 footer {
