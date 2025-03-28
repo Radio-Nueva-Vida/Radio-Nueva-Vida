@@ -42,14 +42,16 @@ body, html {
 }
 
 #cstrFreePlayerDiv {
-    width: 850px; 
-    height: 135px; 
-    margin: 0 auto; 
-    position: absolute;
-    top: 50%; 
-    Left: 50%;
-    background-color: #f0f0f0; 
-  }
+    width: 850px; /* Ajusta el ancho deseado */
+    height: 135px; /* Ajusta el alto deseado */
+    margin: 0 auto; /* Centra horizontalmente */
+    position: absolute; /* Cambia de relative a absolute */
+    top: 50%; /* Posiciona verticalmente al centro de la página */
+    transform: translateY(-50%); /* Corrige para centrar exactamente */
+    background-color: #f0f0f0; /* Color de fondo opcional */
+    z-index: 1; /* Asegúrate de que esté en una capa superior */
+}
+
 
 footer {
     position: absolute;
