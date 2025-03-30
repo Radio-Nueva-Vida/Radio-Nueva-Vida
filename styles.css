@@ -55,20 +55,31 @@ body, html {
 }
 
 #vuMeterLeft, #vuMeterRight {
-    position: fixed; /* Para que estén siempre visibles */
+    position: fixed; /* Siempre visibles */
     top: 0;
-    width: 10px; /* Ancho del vúmetro */
-    height: 100%; /* Largo del vúmetro ocupa toda la página */
-    background: linear-gradient(to bottom, #7CFC00, #000); /* Efecto degradado */
-    z-index: 5; /* Asegúrate de que estén visibles por encima del fondo */
+    width: 50px; /* Ancho total del vúmetro */
+    height: 100%; /* Largo del vúmetro */
+    z-index: 5; /* Visible por encima del fondo */
+    display: flex; /* Para alinear las barras verticalmente */
+    flex-direction: column; /* Apilan las barras */
+    justify-content: center; /* Centran las barras */
+    gap: 5px; /* Espaciado entre barras */
 }
 
 #vuMeterLeft {
-    left: 0; /* Posición a la izquierda */
+    left: 10px; /* Ubicación a la izquierda */
 }
 
 #vuMeterRight {
-    right: 0; /* Posición a la derecha */
+    right: 10px; /* Ubicación a la derecha */
+}
+
+.bar {
+    width: 100%; /* Ancho máximo */
+    height: 10px; /* Altura inicial */
+    background-color: #7CFC00; /* Verde llamativo */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: height 0.2s ease; /* Animación suave */
 }
 
 footer {
