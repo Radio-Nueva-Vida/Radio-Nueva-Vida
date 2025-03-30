@@ -54,6 +54,23 @@ body, html {
     z-index: 1; /* Asegura que esté en una capa visible */
 }
 
+#vuMeterLeft, #vuMeterRight {
+    position: fixed; /* Para que estén siempre visibles */
+    top: 0;
+    width: 10px; /* Ancho del vúmetro */
+    height: 100%; /* Largo del vúmetro ocupa toda la página */
+    background: linear-gradient(to bottom, #7CFC00, #000); /* Efecto degradado */
+    z-index: 5; /* Asegúrate de que estén visibles por encima del fondo */
+}
+
+#vuMeterLeft {
+    left: 0; /* Posición a la izquierda */
+}
+
+#vuMeterRight {
+    right: 0; /* Posición a la derecha */
+}
+
 footer {
     position: absolute;
     bottom: 20px;
