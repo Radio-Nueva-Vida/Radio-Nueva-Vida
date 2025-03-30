@@ -20,37 +20,35 @@ $(document).ready(function() {
     // Agregar un mensaje de bienvenida al cargar la página
     $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Escucha la mejor música cristiana online. ¡Todo el Día...Junto a Vos!</p>');
 });
-$(document).ready(function() {
-    const barsLeft = $('#vuMeterLeft .bar');
-    const barsRight = $('#vuMeterRight .bar');
-    let vuMeterInterval;
 
-    // Iniciar animación de las barras
-    $('audio').on('play', function() {
-        startVuMeters();
+const audioPlayer = new Audio('shaincast.caster.fm:48858/listen.mp3'); // Coloca aquí la URL de tu stream
+audioPlayer.crossOrigin = "anonymous"; // Permite que funcione con streams externos
+
+const audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Crear contexto de audio
+const analyser = audioContext.createAnalyser(); // Crear analizador
+const source = audioContext.createMediaElementSource(audioPlayer); // Conectar reproductor
+source.connect(analyser);
+analyser.connect(audioContext.destination);
+
+const bars = document.querySelectorAll('.bar'); // Seleccionar las barras en tu HTML
+analyser.fftSize = 256; // Tamaño del análisis
+const bufferLength = analyser.frequencyBinCount; // Cantidad de datos de frecuencia
+const dataArray = new Uint8Array(bufferLength);
+
+function updateVuMeters() {
+    analyser.getByteFrequencyData(dataArray); // Obtener datos del volumen
+    bars.forEach((bar, index) => {
+        const volume = dataArray[index];
+        bar.style.height = `${volume / 2}px`; // Ajustar altura basada en el volumen
     });
+    requestAnimationFrame(updateVuMeters); // Animación continua
+}
 
-    // Detener animación de las barras
-    $('audio').on('pause', function() {
-        stopVuMeters();
-    });
+audioPlayer.addEventListener('play', () => {
+    audioContext.resume(); // Activar el contexto
+    updateVuMeters(); // Iniciar la animación de las barras
+});
 
-    function startVuMeters() {
-        vuMeterInterval = setInterval(() => {
-            barsLeft.each(function() {
-                const randomHeight = Math.floor(Math.random() * 100); // Altura aleatoria
-                $(this).css('height', `${randomHeight}%`);
-            });
-            barsRight.each(function() {
-                const randomHeight = Math.floor(Math.random() * 100); // Altura aleatoria
-                $(this).css('height', `${randomHeight}%`);
-            });
-        }, 200); // Velocidad de cambio
-    }
-
-    function stopVuMeters() {
-        clearInterval(vuMeterInterval);
-        barsLeft.css('height', '10px'); // Reinicia las barras
-        barsRight.css('height', '10px');
-    }
+audioPlayer.addEventListener('pause', () => {
+    audioContext.suspend(); // Detener el contexto
 });
