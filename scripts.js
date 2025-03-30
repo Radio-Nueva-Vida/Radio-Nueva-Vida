@@ -30,34 +30,45 @@ audioPlayer.addEventListener('pause', () => {
     audioContext.suspend(); // Detener contexto de audio
 });
 
-const audioPlayer = new Audio('shaincast.caster.fm:48858/listen.mp3'); // Coloca aquí la URL de tu stream
-audioPlayer.crossOrigin = "anonymous"; // Permite que funcione con streams externos
+$(document).ready(function() {
+    // Inicialización del reproductor de audio
+    const audioPlayer = new Audio('https://shaincast.caster.fm:48858/listen.mp3'); // URL del stream
+    audioPlayer.crossOrigin = "anonymous";
 
-const audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Crear contexto de audio
-const analyser = audioContext.createAnalyser(); // Crear analizador
-const source = audioContext.createMediaElementSource(audioPlayer); // Conectar reproductor
-source.connect(analyser);
-analyser.connect(audioContext.destination);
+    // Configuración de la Web Audio API
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = audioContext.createAnalyser();
+    const source = audioContext.createMediaElementSource(audioPlayer);
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
 
-const bars = document.querySelectorAll('.bar'); // Seleccionar las barras en tu HTML
-analyser.fftSize = 256; // Tamaño del análisis
-const bufferLength = analyser.frequencyBinCount; // Cantidad de datos de frecuencia
-const dataArray = new Uint8Array(bufferLength);
+    // Configuración de los vúmetros
+    const bars = document.querySelectorAll('.bar');
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
 
-function updateVuMeters() {
-    analyser.getByteFrequencyData(dataArray); // Obtener datos del volumen
-    bars.forEach((bar, index) => {
-        const volume = dataArray[index];
-        bar.style.height = `${volume / 2}px`; // Ajustar altura basada en el volumen
+    function updateVuMeters() {
+        analyser.getByteFrequencyData(dataArray);
+        bars.forEach((bar, index) => {
+            const volume = dataArray[index];
+            bar.style.height = `${volume / 2}px`;
+        });
+        requestAnimationFrame(updateVuMeters);
+    }
+
+    // Eventos de reproducción y pausa
+    audioPlayer.addEventListener('play', () => {
+        audioContext.resume();
+        updateVuMeters();
+        console.log('Reproducción iniciada');
     });
-    requestAnimationFrame(updateVuMeters); // Animación continua
-}
 
-audioPlayer.addEventListener('play', () => {
-    audioContext.resume(); // Activar el contexto
-    updateVuMeters(); // Iniciar la animación de las barras
-});
+    audioPlayer.addEventListener('pause', () => {
+        audioContext.suspend();
+        console.log('Reproducción pausada');
+    });
 
-audioPlayer.addEventListener('pause', () => {
-    audioContext.suspend(); // Detener el contexto
+    // Para probar: Reproducir automáticamente al cargar la página
+    audioPlayer.play();
 });
