@@ -21,31 +21,36 @@ $(document).ready(function() {
     $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Escucha la mejor música cristiana online. ¡Todo el Día...Junto a Vos!</p>');
 });
 $(document).ready(function() {
-    const vuMeterLeft = $('#vuMeterLeft');
-    const vuMeterRight = $('#vuMeterRight');
-
-    $('audio').on('play', function() {
-        startVuMeters(); // Inicia la animación
-    });
-
-    $('audio').on('pause', function() {
-        stopVuMeters(); // Detén la animación
-    });
-
+    const barsLeft = $('#vuMeterLeft .bar');
+    const barsRight = $('#vuMeterRight .bar');
     let vuMeterInterval;
+
+    // Iniciar animación de las barras
+    $('audio').on('play', function() {
+        startVuMeters();
+    });
+
+    // Detener animación de las barras
+    $('audio').on('pause', function() {
+        stopVuMeters();
+    });
 
     function startVuMeters() {
         vuMeterInterval = setInterval(() => {
-            const randomHeightLeft = Math.random() * 100; // Altura aleatoria
-            const randomHeightRight = Math.random() * 100;
-            vuMeterLeft.css('height', `${randomHeightLeft}%`);
-            vuMeterRight.css('height', `${randomHeightRight}%`);
-        }, 100); // Ajusta la velocidad de la animación
+            barsLeft.each(function() {
+                const randomHeight = Math.floor(Math.random() * 100); // Altura aleatoria
+                $(this).css('height', `${randomHeight}%`);
+            });
+            barsRight.each(function() {
+                const randomHeight = Math.floor(Math.random() * 100); // Altura aleatoria
+                $(this).css('height', `${randomHeight}%`);
+            });
+        }, 200); // Velocidad de cambio
     }
 
     function stopVuMeters() {
         clearInterval(vuMeterInterval);
-        vuMeterLeft.css('height', '0%'); // Reinicia al detener
-        vuMeterRight.css('height', '0%');
+        barsLeft.css('height', '10px'); // Reinicia las barras
+        barsRight.css('height', '10px');
     }
 });
