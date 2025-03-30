@@ -2,9 +2,7 @@ $(document).ready(function () {
     console.log("Página de Radio Nueva Vida cargada correctamente.");
 
     // Inicialización del reproductor de audio
-    const audioPlayer = new Audio('<audio id="http://shaincast.caster.fm:48858/listen.mp3?authn643fb34383a9e1e7c26c4b7d8ca0a986">
-          <!--<source src="http://shaincast.caster.fm:48858/listen.mp3?authn643fb34383a9e1e7c26c4b7d8ca0a986" type="audio/mpeg"></source>-->
-</audio>'); // URL del stream
+    const audioPlayer = new Audio('http://shaincast.caster.fm:48858/listen.mp3?authn643fb34383a9e1e7c26c4b7d8ca0a986'); // URL del stream
     audioPlayer.crossOrigin = "anonymous"; // Permite el uso de Web Audio API
 
     // Configuración de la Web Audio API
