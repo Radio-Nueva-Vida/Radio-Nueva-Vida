@@ -20,4 +20,32 @@ $(document).ready(function() {
     // Agregar un mensaje de bienvenida al cargar la página
     $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Escucha la mejor música cristiana online. ¡Todo el Día...Junto a Vos!</p>');
 });
+$(document).ready(function() {
+    const vuMeterLeft = $('#vuMeterLeft');
+    const vuMeterRight = $('#vuMeterRight');
 
+    $('audio').on('play', function() {
+        startVuMeters(); // Inicia la animación
+    });
+
+    $('audio').on('pause', function() {
+        stopVuMeters(); // Detén la animación
+    });
+
+    let vuMeterInterval;
+
+    function startVuMeters() {
+        vuMeterInterval = setInterval(() => {
+            const randomHeightLeft = Math.random() * 100; // Altura aleatoria
+            const randomHeightRight = Math.random() * 100;
+            vuMeterLeft.css('height', `${randomHeightLeft}%`);
+            vuMeterRight.css('height', `${randomHeightRight}%`);
+        }, 100); // Ajusta la velocidad de la animación
+    }
+
+    function stopVuMeters() {
+        clearInterval(vuMeterInterval);
+        vuMeterLeft.css('height', '0%'); // Reinicia al detener
+        vuMeterRight.css('height', '0%');
+    }
+});
