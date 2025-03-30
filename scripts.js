@@ -21,6 +21,15 @@ $(document).ready(function() {
     $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Escucha la mejor música cristiana online. ¡Todo el Día...Junto a Vos!</p>');
 });
 
+audioPlayer.addEventListener('play', () => {
+    audioContext.resume(); // Activar contexto de audio
+    updateVuMeters(); // Iniciar vúmetros
+});
+
+audioPlayer.addEventListener('pause', () => {
+    audioContext.suspend(); // Detener contexto de audio
+});
+
 const audioPlayer = new Audio('shaincast.caster.fm:48858/listen.mp3'); // Coloca aquí la URL de tu stream
 audioPlayer.crossOrigin = "anonymous"; // Permite que funcione con streams externos
 
