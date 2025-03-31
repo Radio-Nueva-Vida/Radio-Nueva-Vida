@@ -16,7 +16,7 @@ $(document).ready(function () {
     // Mensaje de bienvenida dinámico
     $('#header-section').append('<p style="font-size: 1.2rem; color: #fff;">Escucha la mejor música cristiana online. ¡Todo el Día...Junto a Vos!</p>');
 
-    $(document).ready(function () {
+$(document).ready(function () {
     console.log("Animación visual para los vúmetros activa.");
 
     const barsLeft = $('#vuMeterLeft .bar');
@@ -25,11 +25,11 @@ $(document).ready(function () {
     function animateBars() {
         // Iterar sobre las barras y asignar alturas aleatorias
         barsLeft.each(function () {
-            const randomHeight = Math.random() * 5 + 10; // Altura entre 5px y 15px
+            const randomHeight = Math.random() * 50 + 10; // Altura entre 10px y 60px
             $(this).css('height', `${randomHeight}px`);
         });
         barsRight.each(function () {
-            const randomHeight = Math.random() * 5 + 10;
+            const randomHeight = Math.random() * 50 + 10;
             $(this).css('height', `${randomHeight}px`);
         });
     }
