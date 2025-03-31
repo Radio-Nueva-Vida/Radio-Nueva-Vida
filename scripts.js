@@ -25,7 +25,7 @@ $(document).ready(function () {
     function animateBars() {
         // Iterar sobre las barras y asignar alturas aleatorias
         barsLeft.each(function () {
-            const randomHeight = Math.random() * 50 + 10; // Altura entre 10px y 60px
+            const randomHeight = Math.random() * 20 + 10; // Altura entre 10px y 30px
             $(this).css('height', `${randomHeight}px`);
         });
         barsRight.each(function () {
