@@ -75,7 +75,7 @@ body, html {
 }
 
 .bar {
-    width: 100%; /* Ancho completo de las barras */
+    width: 50%; /* Ancho completo de las barras */
     height: 10px; /* Altura inicial */
     background-color: #7CFC00; /* Verde llamativo */
     margin-bottom: 5px; /* Espaciado entre barras */
