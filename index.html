@@ -1,50 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio Nueva Vida</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="scripts.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Radio Online</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-   <div id="header-section">
-    <h1 id="title">Radio Nueva Vida</h1>
-    <h2 id="slogan">La brújula que orienta tus sentidos hacia Dios</h2>
-</div>
-<script type='text/javascript'> var cstrFreePlayerUid = 568278;var cstrFreePlayerTheme = 'color';var cstrFreePlayerColor = '000000'; </script>
-<script type='text/javascript' src='//corscdn.caster.fm/freeplayer/FreePlanPlayerEmbed.js'></script>
-<!--   DO NOT REMOVE THE LINKS BELOW, THEY  WILL BE HIDDEN (AND WILL HELP US A LOT)   -->
-<a id='cstrFreePlayerBL1' href='//www.caster.fm/'>Free Shoutcast Hosting</a><a id='cstrFreePlayerBL2' href='//www.caster.fm/'>Radio Stream Hosting</a>
-<div id='cstrFreePlayerDiv'></div>
-   <div id="vuMeterLeft">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-</div>
-<div id="vuMeterRight">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-</div>
-<footer>
-    <p>Síguenos</p>
-    <div id="social-icons">
-        <a href="https://facebook.com" target="_blank"><img src="facebook_icon.png" alt="Facebook"></a>
-        <a href="https://twitter.com" target="_blank"><img src="twitter_icon.png" alt="Twitter"></a>
-        <a href="https://instagram.com" target="_blank"><img src="instagram_icon.png" alt="Instagram"></a>
-    </div>
-</footer>
-
-    </div>
+  <div class="player-container">
+    <header class="player-header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Radio_logo.png" alt="Logo" class="logo" />
+      <div class="vumetros">
+        <canvas id="vuLeft" width="120" height="60"></canvas>
+        <canvas id="vuRight" width="120" height="60"></canvas>
+      </div>
+    </header>
+    <main class="player-main">
+      <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Cover" class="cover-art" />
+      <div class="radio-info">
+        <h2>Radio FM TOP40</h2>
+        <audio id="audio" controls>
+          <source src="https://radioproxy-render.onrender.com" type="audio/mpeg" />
+          Tu navegador no soporta el elemento de audio.
+        </audio>
+        <p id="time">00:00</p>
+      </div>
+    </main>
+  </div>
+  <script src="vumetro.js"></script>
 </body>
 </html>

@@ -1,16 +1,13 @@
-## Hi there 👋
+# Reproductor de Radio Online
 
-<!--
-**Radio-Nueva-Vida/Radio-Nueva-Vida** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Este es un reproductor de radio con dos vúmetros analógicos estilo retro creados con HTML5 Canvas.
 
-Here are some ideas to get you started:
+## ¿Cómo usarlo?
+1. Subí estos archivos a un hosting (GitHub Pages, InfinityFree, etc).
+2. Abrí `index.html` en el navegador.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Stream actual:
+Usa un proxy intermedio para evitar bloqueos por CORS.
+
+---
+Hecho con ❤️ y HTML + CSS + JS + Canvas
