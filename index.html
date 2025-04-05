@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radio Nueva Vida</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="player-container">
+    <header class="player-header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Radio_logo.png" alt="Logo" class="logo" />
+      <div class="vumetros">
+        <canvas id="vuLeft" width="120" height="60"></canvas>
+        <canvas id="vuRight" width="120" height="60"></canvas>
+      </div>
+    </header>
+    <main class="player-main">
+      <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Cover" class="cover-art" />
+      <div class="radio-info">
+        <h2>Radio FM TOP40</h2>
+        <audio id="audio" controls autoplay>
+          <source src="https://radioproxy-render.onrender.com/stream" type="audio/mpeg" />
+          Tu navegador no soporta el elemento de audio.
+        </audio>
+        <p id="time">00:00</p>
+      </div>
+    </main>
+  </div>
+  <script src="vumetro.js"></script>
+</body>
+</html>
