@@ -7,23 +7,23 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="player">
-    <h1>Mi Radio Online</h1>
-    <audio id="audio" controls autoplay>
+  <!-- Vúmetros en la esquina superior derecha -->
+  <div class="vu-container">
+    <div class="vu-meter" id="vu-left">
+      <canvas width="150" height="150"></canvas>
+    </div>
+    <div class="vu-meter right" id="vu-right">
+      <canvas width="150" height="150"></canvas>
+    </div>
+  </div>
+
+  <!-- Contenido principal centrado -->
+  <div class="container">
+    <h1 class="title">Mi Radio Online</h1>
+    <audio id="audio" controls autoplay crossorigin="anonymous">
       <source src="https://free-shoutcast.com/___AQUI_TU_URL___" type="audio/mpeg" />
       Tu navegador no soporta audio HTML5.
-    <div class="vu-container">
-  <div class="vu-meter" id="vu-left">
-    <canvas width="150" height="150"></canvas>
-  </div>
-  <div class="vu-meter right" id="vu-right">
-    <canvas width="150" height="150"></canvas>
-  </div>
     </audio>
-    <div class="vumetros">
-      <canvas id="vuLeft" class="vumeter" width="150" height="80"></canvas>
-      <canvas id="vuRight" class="vumeter" width="150" height="80"></canvas>
-    </div>
   </div>
 
   <script src="vumetro.js"></script>
