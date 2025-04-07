@@ -1,18 +1,23 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
   background: linear-gradient(to bottom right, #012733, #033649);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
-  height: 100vh;
-  overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
 }
 
 .container {
   text-align: center;
+  z-index: 1;
+  padding-bottom: 40px; /* espacio para no pegar al borde inferior */
 }
 
 .title {
