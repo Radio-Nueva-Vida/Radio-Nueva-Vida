@@ -1,63 +1,59 @@
-
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at center, #002F40 0%, #001F2A 100%);
+  padding: 0;
+  background: linear-gradient(to bottom right, #012733, #033649);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
-}
-.player-container {
-  background-color: #05445E;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
-}
-.player-header {
+  overflow: hidden;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
-.logo {
-  height: 50px;
+
+.container {
+  text-align: center;
 }
-.vumetros {
-  display: flex;
-  gap: 10px;
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
-.vumetros {
+
+audio {
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #fff;
+  outline: none;
+  width: 300px;
+}
+
+/* VU meters */
+.vu-container {
   position: absolute;
   top: 10px;
   right: 10px;
   display: flex;
   gap: 10px;
 }
-.vumetros canvas {
+
+.vu-meter {
   width: 150px;
-  height: 80px;
+  height: 150px;
   background-image: url('vu-background.png');
-  background-size: 300px 80px; /* total width (150px x 2) */
+  background-size: 300px 150px;
   background-repeat: no-repeat;
-  border: none;
+  background-position: left top;
+  position: relative;
 }
 
-#vuLeft {
-  background-position: left center;
+.vu-meter.right {
+  background-position: right top;
 }
 
-#vuRight {
-  background-position: right center;
-}
-.cover-art {
-  width: 80px;
-  height: 80px;
-  margin-top: 20px;
-}
-.radio-info {
-  margin-top: 15px;
-}
-audio {
-  margin-top: 10px;
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
