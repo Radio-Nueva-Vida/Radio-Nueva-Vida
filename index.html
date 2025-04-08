@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radio Nueva Vida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('fondo-radio.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+
+    p {
+      margin: 0 0 20px;
+      font-size: 1rem;
+    }
+
+    audio {
+      width: 300px;
+      max-width: 80vw;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo-nueva-vida.png" alt="Radio Nueva Vida Logo" class="logo" />
+  <h1>Radio Nueva Vida</h1>
+  <p>Transmitiendo esperanza 24/7</p>
+  <audio controls autoplay>
+    <source src="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" type="audio/mpeg" />
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+</body>
+</html>
