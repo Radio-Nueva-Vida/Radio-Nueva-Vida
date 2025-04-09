@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Radio Nueva Vida</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="radio-container">
+    <img src="assets/fondo-radio-pro.jpg" alt="Fondo" class="background"/>
+    <div class="player-content">
+      <img src="assets/logo-nueva-vida.png" alt="Logo" class="logo" />
+      <audio id="radio" src="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" preload="none"></audio>
+      <button class="play-btn" onclick="togglePlay()">▶</button>
+      <img src="assets/ondas-animadas.svg" alt="Ondas" class="waves" />
+      <div class="external-links">
+        <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank">Abrir en reproductor externo</a>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
