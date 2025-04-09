@@ -1,60 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Radio Nueva Vida</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Roboto', sans-serif;
-      background: url('fondo-radio.jpg') no-repeat center center fixed;
+      background: url('fondo-radio-pro.png') no-repeat center center fixed;
       background-size: cover;
-      color: white;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+    }
+    .player-box {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      padding: 40px;
+      width: 350px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
       text-align: center;
     }
-
-    .logo {
+    .player-box img.logo {
       width: 60px;
-      height: 60px;
+      margin-bottom: 15px;
+    }
+    .player-box h1 {
+      font-size: 1.8rem;
+      color: #fff;
       margin-bottom: 10px;
     }
-
-    h1 {
+    .player-box p {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+    .play-button {
+      width: 80px;
+      height: 80px;
+      background: #e52d27;
+      border-radius: 50%;
+      border: none;
+      color: white;
       font-size: 2rem;
-      margin: 10px 0;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: background 0.3s;
     }
-
-    p {
-      margin: 0 0 20px;
-      font-size: 1rem;
+    .play-button:hover {
+      background: #ff3c3c;
     }
-
-    audio {
-      width: 300px;
-      max-width: 80vw;
+    .waves {
+      margin: 30px auto;
+      height: 30px;
+      width: 100%;
+      background: url('ondas-animadas.svg') repeat-x;
+      animation: waveMove 2s linear infinite;
+    }
+    @keyframes waveMove {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 200px; }
+    }
+    .external-links {
       margin-top: 20px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 10px;
+    }
+    .external-links a {
+      text-decoration: none;
+      color: #fff;
+      background: #444;
+      padding: 8px 15px;
+      border-radius: 8px;
+      margin: 0 5px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .external-links a:hover {
+      background: #666;
     }
   </style>
 </head>
 <body>
-  <img src="logo-nueva-vida.png" alt="Radio Nueva Vida Logo" class="logo" />
-  <h1>Radio Nueva Vida</h1>
-  <p>Transmitiendo esperanza 24/7</p>
-  <audio controls autoplay>
-    <source src="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" type="audio/mpeg" />
-    Tu navegador no soporta el elemento de audio.
-  </audio>
+  <div class="player-box">
+    <img src="logo-nueva-vida.png" alt="Logo Radio" class="logo">
+    <h1>Radio Nueva Vida</h1>
+    <p>Transmitiendo esperanza 24/7</p>
+    <button class="play-button" onclick="togglePlay()" id="playBtn">▶</button>
+    <div class="waves"></div>
+    <div class="external-links">
+      <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank">Abrir en Winamp</a>
+      <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank">Abrir en VLC</a>
+    </div>
+    <audio id="audio" src="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" preload="none"></audio>
+  </div>
+  <script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = '⏸';
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶';
+      }
+    }
+  </script>
 </body>
 </html>
