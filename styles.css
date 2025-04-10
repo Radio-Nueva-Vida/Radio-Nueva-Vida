@@ -1,47 +1,58 @@
 body {
-  margin: 0;
-  font-family: sans-serif;
-  background-color: #000;
-}
-.radio-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-.background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-.player-content {
-  position: relative;
-  z-index: 1;
+  background-color: #021e29;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
   text-align: center;
-  top: 20%;
+  padding: 30px;
 }
 .logo {
-  width: 120px;
+  width: 80px;
   margin-bottom: 20px;
 }
-.play-btn {
-  font-size: 60px;
-  border: none;
+h1 {
+  font-size: 2em;
+  margin: 0;
+}
+.sub {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+.reproductor-btn {
   background: none;
-  color: white;
+  border: none;
   cursor: pointer;
+  margin: 20px 0;
 }
-.waves {
-  width: 200px;
-  margin-top: 20px;
+.informacion-de-la-pista {
+  margin-top: 10px;
 }
-.external-links {
-  margin-top: 15px;
+.ondas {
+  width: 100%;
+  margin: 320px;
+  display: block;
+  animation: pulso 1.5s infinite;
 }
-.external-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+
+@keyframes pulso {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.jugadores-externos img {
+  width: 32px;
+  margin: 10px 10px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+.jugadores-externos img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+.centrador {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
