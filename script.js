@@ -1,14 +1,16 @@
-const radio = document.getElementById('radio');
-const btn = document.querySelector('.play-btn');
-let playing = false;
+const boton = document.getElementById("reproducirPausa");
+const audio = document.getElementById("audio");
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
 
-function togglePlay() {
-  if (playing) {
-    radio.pause();
-    btn.textContent = '▶';
+boton.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
   } else {
-    radio.play();
-    btn.textContent = '⏸';
+    audio.pause();
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
   }
-  playing = !playing;
-}
+});
