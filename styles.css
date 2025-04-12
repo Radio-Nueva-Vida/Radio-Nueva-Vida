@@ -1,0 +1,76 @@
+body {
+  background-color: #021e29;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  margin: 0;
+}
+.logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 2em;
+  margin: 0;
+}
+.sub {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+.reproductor-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 20px 0;
+}
+.metadata {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+#album-art {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+.info p {
+  margin: 2px;
+  font-size: 1em;
+  color: #ffffff;
+}
+.control-volumen {
+  margin: 10px 0;
+}
+.ondas {
+  width: 120px;
+  margin: 20px auto 0;
+  display: block;
+}
+.jugadores-externos {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+.jugadores-externos img {
+  width: 32px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+.jugadores-externos img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+.centrador {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
