@@ -5,49 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Radio Nueva Vida</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles-responsive.css" />
   <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <div class="centrador">
-    <div class="reproductor-de-radio">
-      <img src="logo-nueva-vida.png" alt="Logo Radio Nueva Vida" class="logo" />
-      <h1>RADIO NUEVA VIDA</h1>
-      <p class="sub">radio cristiana online</p>
+  <div class="container">
+    <img src="logo-nueva-vida.png" alt="Logo" class="logo" />
 
-      <button id="playPause" class="reproductor-btn" aria-label="Reproducir">
-        <svg id="iconoPlay" viewBox="0 0 64 64" width="48" height="48" fill="white">
-          <polygon points="16,12 52,32 16,52"/>
-        </svg>
-        <svg id="iconoPause" viewBox="0 0 64 64" width="48" height="48" fill="white" style="display: none;">
-          <rect x="16" y="12" width="10" height="40"/>
-          <rect x="38" y="12" width="10" height="40"/>
-        </svg>
-      </button>
+    <h1>RADIO NUEVA VIDA</h1>
+    <p class="subtitulo">radio cristiana online</p>
 
-      <div class="metadata">
-        <img id="album-art" src="placeholder.png" alt="Carátula" />
-        <div class="info">
-          <p id="artista">Cargando artista...</p>
-          <p id="titulo">Cargando canción...</p>
-        </div>
-      </div>
+    <button id="playPauseBtn" class="play-button">
+      <span id="icon">&#9658;</span>
+    </button>
 
-      <div class="control-volumen">
-        <input type="range" id="volumen" min="0" max="1" step="0.01" value="1">
-      </div>
+    <img id="cover" class="cover" src="placeholder.png" alt="Carátula del álbum" />
 
-      <img src="ondas-animadas.svg" alt="ondas" class="ondas" />
+    <p id="artist">Cargando artista...</p>
+    <p id="title">Cargando canción...</p>
 
-      <div class="jugadores-externos">
-        <img src="icon-wmp.png" alt="Windows Media Player" />
-        <img src="icon-winamp.png" alt="Winamp" />
-        <img src="icon-vlc.png" alt="VLC" />
-        <img src="icon-externo.png" alt="Abrir stream" />
-      </div>
+    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" />
+
+    <div class="ondas-container">
+      <img src="ondas-animadas.svg" alt="Ondas animadas" class="ondas-svg" />
     </div>
+
+    <div class="icons">
+      <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank"><img src="icon-wmp.png" alt="WMP"></a>
+      <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank"><img src="icon-winamp.png" alt="Winamp"></a>
+      <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank"><img src="icon-vlc.png" alt="VLC"></a>
+      <a href="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" target="_blank"><img src="icon-externo.png" alt="Abrir en reproductor externo"></a>
+    </div>
+
     <audio id="audio" src="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" preload="none"></audio>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/shoutcast-metadata-parser@latest/dist/shoutcast-metadata-parser.min.js"></script>
   <script src="script.js"></script>
+  <script>if ("serviceWorker" en el navegador) { navigator.serviceWorker .register("/service-worker.js") .then(() => console.log("Service Worker registrado")) .catch(error => console.error("Error al registrar SW:",    error)); } </script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+/* 🎨 Estilos base existentes (ya están aplicados desde styles.css) */
+
+/* 📱 Estilos Responsive para pantallas pequeñas */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+    max-width: 95%;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .subtitulo {
+    font-size: 13px;
+  }
+
+  .play-button {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .cover {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+  }
+
+  #artist, #title {
+    font-size: 13px;
+  }
+
+  #volumeControl {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .ondas-container {
+    max-width: 260px;
+    padding: 8px;
+  }
+
+  .icons img {
+    width: 22px;
+    margin: 6px;
+  }
+}
