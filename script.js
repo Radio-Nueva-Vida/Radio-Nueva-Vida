@@ -1,29 +1,39 @@
-
 const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPauseBtn");
-const icon = document.getElementById("icon");
+const iconoPlay = document.getElementById("iconoPlay");
+const iconoPause = document.getElementById("iconoPause");
 const artistElement = document.getElementById("artist");
 const titleElement = document.getElementById("title");
 const coverElement = document.getElementById("cover");
+const volumeControl = document.getElementById("volumeControl");
 
+// Reproducir o pausar al hacer clic en el botón
 playPauseBtn.addEventListener("click", () => {
   if (audio.paused) {
-    audio.play();
-    icon.textContent = "❚❚";
+    audio.play().then(() => {
+      iconoPlay.style.display = "none";
+      iconoPause.style.display = "inline";
+    }).catch(err => {
+      console.error("Error al reproducir:", err);
+    });
   } else {
     audio.pause();
-    icon.textContent = "►";
+    iconoPlay.style.display = "inline";
+    iconoPause.style.display = "none";
   }
 });
 
-document.getElementById("volumeControl").addEventListener("input", (e) => {
+// Control de volumen
+volumeControl.addEventListener("input", (e) => {
   audio.volume = e.target.value;
 });
 
+// Limpiar etiquetas HTML de texto
 function limpiarTexto(texto) {
   return texto.replace(/<\/?.+?>/g, "").trim();
 }
 
+// Obtener metadatos desde el proxy
 async function obtenerMetadata() {
   try {
     const res = await fetch("https://proxy-metadatos.onrender.com/metadata");
@@ -42,11 +52,11 @@ async function obtenerMetadata() {
       } else {
         titleElement.style.display = "none";
       }
+
       buscarPortada(`${artistaLimpiado} ${tituloLimpiado}`);
     }
   } catch (err) {
     console.error("Error al obtener metadata", err);
-    // Podrías añadir aquí un manejo para mostrar información por defecto en caso de error
     artistElement.textContent = "Desconocido";
     titleElement.textContent = "Sin información";
     titleElement.style.display = "block";
@@ -54,20 +64,21 @@ async function obtenerMetadata() {
   }
 }
 
+// Buscar portada con fallback (iTunes + MusicBrainz)
 async function buscarPortada(query) {
   try {
     const itunesRes = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=1`);
     const itunesData = await itunesRes.json();
 
-    if (itunesData.results && itunesData.results.length > 0 && itunesData.results[0].artworkUrl100) {
-      coverElement.src = itunesData.results[0].artworkUrl100.replace('100x100bb.jpg', '512x512bb.jpg'); // Intenta obtener una imagen más grande
+    if (itunesData.results?.length > 0 && itunesData.results[0].artworkUrl100) {
+      coverElement.src = itunesData.results[0].artworkUrl100.replace("100x100bb.jpg", "512x512bb.jpg");
       return;
     }
 
     const mbRes = await fetch(`https://musicbrainz.org/ws/2/release/?query=${encodeURIComponent(query)}&fmt=json`);
     const mbData = await mbRes.json();
 
-    if (mbData.releases && mbData.releases.length > 0 && mbData.releases[0]['cover-art-archive']?.front) {
+    if (mbData.releases?.length > 0) {
       const releaseId = mbData.releases[0].id;
       const coverUrl = `https://coverartarchive.org/release/${releaseId}/front`;
       const coverCheck = await fetch(coverUrl, { method: "HEAD" });
