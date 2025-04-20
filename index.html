@@ -16,9 +16,15 @@
     <h1>RADIO NUEVA VIDA</h1>
     <p class="subtitulo">radio cristiana online</p>
 
-    <button id="playPauseBtn" class="play-button">
-      <span id="icon">&#9658;</span>
-    </button>
+    <button id="playPauseBtn" class="play-button" aria-label="Reproducir/Pausar">
+  <svg id="iconoPlay" viewBox="0 0 64 64" width="48" height="48" fill="white">
+    <polygon points="24,18 48,32 24,46" />
+  </svg>
+  <svg id="iconoPause" viewBox="0 0 64 64" width="48" height="48" fill="white" style="display: none;">
+    <rect x="22" y="18" width="8" height="28" />
+    <rect x="36" y="18" width="8" height="28" />
+  </svg>
+</button>
 
     <img id="cover" class="cover" src="placeholder.png" alt="Carátula del álbum" />
 
