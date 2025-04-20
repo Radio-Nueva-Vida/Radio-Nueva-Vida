@@ -1,21 +1,21 @@
 {
   "name": "Radio Nueva Vida",
-  "short_name": "Nueva Vida",
-  "start_url": "./index.html",
+  "short_name": "RNV",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#008b8b",
-  "theme_color": "#008b8b",
+  "background_color": "#1b4f1b",
+  "theme_color": "#1b4f1b",
   "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
       "src": "icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
