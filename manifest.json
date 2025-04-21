@@ -1,11 +1,15 @@
 {
   "name": "Radio Nueva Vida",
-  "short_name": "Radio Nueva Vida",
-  "start_url": "/Radio-Nueva-Vida/index.html",
+  "short_name": "Radio NV",
+  "description": "Escuchá Radio Nueva Vida en vivo 24/7 con música cristiana, reflexión y contenido espiritual.",
+  "id": "/Radio-Nueva-Vida/",
+  "start_url": "/Radio-Nueva-Vida/",
+  "scope": "/Radio-Nueva-Vida/",
   "display": "standalone",
-  "background_color": "#021e29",
-  "theme_color": "#021e29",
+  "background_color": "#111827",
+  "theme_color": "#111827",
   "orientation": "portrait",
+  "lang": "es-AR",
   "icons": [
     {
       "src": "icon-192.png",
@@ -17,5 +21,20 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "label": "Pantalla de reproducción de la radio"
+    },
+    {
+      "src": "screenshot2.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "label": "Botón de compartir y diseño vertical moderno"
+    }
   ]
 }
+
