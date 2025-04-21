@@ -1,10 +1,10 @@
 {
   "name": "Radio Nueva Vida",
-  "short_name": "Nueva Vida",
+  "short_name": "Radio Nueva Vida",
   "start_url": "/Radio-Nueva-Vida/index.html",
   "display": "standalone",
-  "background_color": "#02272d",
-  "theme_color": "#02272d",
+  "background_color": "#021e29",
+  "theme_color": "#021e29",
   "orientation": "portrait",
   "icons": [
     {
