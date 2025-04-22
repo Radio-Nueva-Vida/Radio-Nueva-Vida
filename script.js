@@ -7,12 +7,15 @@ const titleElement = document.getElementById("title");
 const coverElement = document.getElementById("cover");
 const volumeControl = document.getElementById("volumeControl");
 
+let isPlaying = false; // 💡 usamos esta bandera para saber si fue el usuario quien dio play
+
 // Reproducir o pausar al hacer clic en el botón
 playPauseBtn.addEventListener("click", () => {
   if (audio.paused) {
     audio.play().then(() => {
       iconoPlay.style.display = "none";
       iconoPause.style.display = "inline";
+      isPlaying = true; // 🟢 marcamos como reproduciendo
     }).catch(err => {
       console.error("Error al reproducir:", err);
     });
@@ -20,6 +23,7 @@ playPauseBtn.addEventListener("click", () => {
     audio.pause();
     iconoPlay.style.display = "inline";
     iconoPause.style.display = "none";
+    isPlaying = false; // 🔴 marcamos como pausado
   }
 });
 
@@ -95,5 +99,16 @@ async function buscarPortada(query) {
   }
 }
 
+// 🔄 Auto-reintento cada 30 segundos si se pausa sin querer
+setInterval(() => {
+  if (audio.paused && isPlaying) {
+    console.log("🎧 Intentando reanudar la reproducción automáticamente...");
+    audio.play().catch((e) => {
+      console.warn("No se pudo reanudar:", e);
+    });
+  }
+}, 30000); // cada 30 segundos
+
+// Actualizar metadatos automáticamente
 setInterval(obtenerMetadata, 15000);
 obtenerMetadata();
