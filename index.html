@@ -46,6 +46,144 @@
 
     <audio id="audio" src="https://usa13.fastcast4u.com/proxy/nuevavidaonline?mp=/1" preload="none"></audio>
   </div>
+  <!-- BOTÓN FLOTANTE DE CONTACTO ESTILIZADO -->
+<button id="btn-contacto" class="boton-contacto">
+  📬 Contáctanos
+</button>
+
+<!-- MODAL ELEGANTE DE CONTACTO -->
+<div id="modal-contacto" class="modal oculto">
+  <div class="modal-contenido">
+    <span id="cerrar-modal" class="cerrar">&times;</span>
+    <h2>📨 Contáctanos</h2>
+    <form id="formulario-contacto">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="ejemplo@email.com" required>
+
+      <label for="mensaje">Tu mensaje</label>
+      <textarea id="mensaje" name="mensaje" placeholder="Escríbenos tu consulta o propuesta..." rows="4" required></textarea>
+
+      <button type="submit">Enviar mensaje ✉️</button>
+    </form>
+  </div>
+</div>
+<!-- ESTILOS PERSONALIZADOS -->
+<style>
+  .boton-contacto {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #ffd166;
+    color: #002b36;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    font-size: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transition: 0.3s ease;
+  }
+  .boton-contacto:hover {
+    background-color: #ffcd1e;
+  }
+
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+  }
+  .modal.oculto {
+    display: none;
+  }
+  .modal-contenido {
+    background-color: #002b36;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.4s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cerrar {
+    float: right;
+    font-size: 26px;
+    font-weight: bold;
+    color: #ffd166;
+    cursor: pointer;
+  }
+  .modal-contenido h2 {
+    margin-bottom: 1rem;
+    color: #ffd166;
+    text-align: center;
+  }
+  form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 0.95rem;
+  }
+  form input,
+  form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    background: #f8f8f8;
+    color: #000;
+  }
+  form button[type="submit"] {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #ffd166;
+    color: #002b36;
+    padding: 12px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  form button[type="submit"]:hover {
+    background-color: #ffcd1e;
+  }
+</style>
+
+<!-- SCRIPT DEL MODAL -->
+<script>
+  const btnContacto = document.getElementById("btn-contacto");
+  const modal = document.getElementById("modal-contacto");
+  const cerrarModal = document.getElementById("cerrar-modal");
+
+  btnContacto.onclick = () => modal.classList.remove("oculto");
+  cerrarModal.onclick = () => modal.classList.add("oculto");
+  window.onclick = (e) => {
+    if (e.target === modal) modal.classList.add("oculto");
+  }
+  document.getElementById("formulario-contacto").onsubmit = (e) => {
+    e.preventDefault();
+    alert("✅ Gracias por escribirnos. Pronto te responderemos.");
+    modal.classList.add("oculto");
+  }
+</script>
   <script src="https://cdn.jsdelivr.net/npm/shoutcast-metadata-parser@latest/dist/shoutcast-metadata-parser.min.js"></script>
   <script src="script.js"></script>
   <script>if ("serviceWorker" en el navegador) { navigator.serviceWorker .register("/service-worker.js") .then(() => console.log("Service Worker registrado")) .catch(error => console.error("Error al registrar SW:",    error)); } </script>
