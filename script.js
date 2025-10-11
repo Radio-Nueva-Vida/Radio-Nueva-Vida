@@ -1,11 +1,38 @@
-// ✅ CÓDIGO CORREGIDO: Los IDs coinciden ahora con tu HTML
 const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPauseBtn"); 
 const artistaEl = document.getElementById("artist"); 
 const tituloEl = document.getElementById("title"); 
 const albumArt = document.getElementById("cover"); 
 const volumenControl = document.getElementById("volumeControl"); 
+const playIcon = document.getElementById("iconoPlay");
+const pauseIcon = document.getElementById("iconoPause");
 
+playPauseBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    // Si está en pausa, intentamos reproducir y mostramos el ícono de pausa.
+    audio.play();
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
+  } else {
+    // Si está reproduciendo, pausamos y mostramos el ícono de play.
+    audio.pause();
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
+  }
+});
+
+// Consejo: También puedes añadir listeners a los eventos 'play' y 'pause' del audio
+// para manejar cambios si el audio se detiene por otras razones (ej. error de red).
+
+audio.addEventListener('play', () => {
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
+});
+
+audio.addEventListener('pause', () => {
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
+});
 // -------------------------------------------------------------
 // Lógica para Reproducir/Pausar y para el Volumen (Funcional)
 // -------------------------------------------------------------
