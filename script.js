@@ -1,59 +1,42 @@
+// 1. DEFINICIÓN DE CONSTANTES (IDs CORREGIDOS)
 const audio = document.getElementById("audio");
-const playPauseBtn = document.getElementById("playPauseBtn"); 
-const artistaEl = document.getElementById("artist"); 
-const tituloEl = document.getElementById("title"); 
+const playPauseBtn = document.getElementById("playPauseBtn");
+const artistaEl = document.getElementById("artist");
+const tituloEl = document.getElementById("title");
 const albumArt = document.getElementById("cover");
-const volumenControl = document.getElementById("volumeControl"); 
+const volumenControl = document.getElementById("volumeControl");
 
+// Íconos SVG para el cambio visual
 const playIcon = document.getElementById("iconoPlay");
 const pauseIcon = document.getElementById("iconoPause");
 
+// 2. FUNCIÓN DE REPRODUCCIÓN Y CONTROL DE ÍCONOS
+// Este listener gestiona el click y actualiza los íconos.
 playPauseBtn.addEventListener("click", () => {
   if (audio.paused) {
-    // Si está en pausa, intentamos reproducir y mostramos el ícono de pausa.
     audio.play();
-    playIcon.style.display = "none";
-    pauseIcon.style.display = "block";
   } else {
-    // Si está reproduciendo, pausamos y mostramos el ícono de play.
     audio.pause();
-    playIcon.style.display = "block";
-    pauseIcon.style.display = "none";
   }
 });
 
-// Consejo: También puedes añadir listeners a los eventos 'play' y 'pause' del audio
-// para manejar cambios si el audio se detiene por otras razones (ej. error de red).
-
+// Listeners para actualizar íconos basados en el estado del audio (incluso si se detiene por red)
 audio.addEventListener('play', () => {
-    playIcon.style.display = "none";
-    pauseIcon.style.display = "block";
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
 });
 
 audio.addEventListener('pause', () => {
-    playIcon.style.display = "block";
-    pauseIcon.style.display = "none";
-});
-// -------------------------------------------------------------
-// Lógica para Reproducir/Pausar y para el Volumen (Funcional)
-// -------------------------------------------------------------
-
-playPauseBtn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
 });
 
+// 3. CONTROL DE VOLUMEN
 volumenControl.addEventListener("input", (e) => {
   audio.volume = e.target.value;
 });
 
-// -------------------------------------------------------------
-// Lógica para Obtener y Mostrar Metadatos (Funcional)
-// -------------------------------------------------------------
-
+// 4. LÓGICA DE METADATOS
 async function obtenerMetadata() {
   try {
     const res = await fetch("https://proxy-metadatos-ugf5.onrender.com/metadata");
@@ -80,5 +63,6 @@ async function obtenerMetadata() {
   }
 }
 
-setInterval(obtenerMetadata, 15000);
+// Iniciar la obtención de metadatos y establecer el intervalo
 obtenerMetadata();
+setInterval(obtenerMetadata, 15000);
