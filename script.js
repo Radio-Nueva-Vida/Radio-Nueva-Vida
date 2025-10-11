@@ -2,8 +2,9 @@ const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPauseBtn"); 
 const artistaEl = document.getElementById("artist"); 
 const tituloEl = document.getElementById("title"); 
-const albumArt = document.getElementById("cover"); 
+const albumArt = document.getElementById("cover");
 const volumenControl = document.getElementById("volumeControl"); 
+
 const playIcon = document.getElementById("iconoPlay");
 const pauseIcon = document.getElementById("iconoPause");
 
