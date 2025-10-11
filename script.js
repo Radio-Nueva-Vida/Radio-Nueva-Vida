@@ -1,36 +1,47 @@
-
 const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPause");
-const iconoPlay = document.getElementById("iconoPlay");
-const iconoPause = document.getElementById("iconoPause");
-const volumen = document.getElementById("volumen");
-
-const artista = document.getElementById("artista");
-const titulo = document.getElementById("titulo");
+const artistaEl = document.getElementById("artista");
+const tituloEl = document.getElementById("titulo");
 const albumArt = document.getElementById("album-art");
+const volumenControl = document.getElementById("volumen");
 
-let isPlaying = false;
-
-// URL del proxy en Render
-const URL_PROXY = "https://proxy-metadatos-ugf5.onrender.com/metadata";
-
-// Reproducir / Pausar
 playPauseBtn.addEventListener("click", () => {
-  if (isPlaying) {
-    audio.pause();
-    iconoPlay.style.display = "inline";
-    iconoPause.style.display = "none";
-  } else {
+  if (audio.paused) {
     audio.play();
-    iconoPlay.style.display = "none";
-    iconoPause.style.display = "inline";
+  } else {
+    audio.pause();
   }
-  isPlaying = !isPlaying;
 });
 
-// Control de volumen
-volumen.addEventListener("input", () => {
-  audio.volume = volumen.value;
+volumenControl.addEventListener("input", (e) => {
+  audio.volume = e.target.value;
 });
 
-// Limpiar posibles etiquetas HTML o basura en el texto recibido
+async function obtenerMetadata() {
+  try {
+    const res = await fetch("https://proxy-metadatos-ugf5.onrender.com/metadata");
+    const data = await res.json();
+
+    artistaEl.textContent = data.artist || "Desconocido";
+    tituloEl.textContent = data.title || "Sin título";
+
+    const query = encodeURIComponent(`${data.artist} ${data.title}`);
+    const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
+    const itunesData = await itunesRes.json();
+
+    if (itunesData.results && itunesData.results.length > 0) {
+      const artwork = itunesData.results[0].artworkUrl100;
+      albumArt.src = artwork.replace("100x100", "512x512");
+    } else {
+      albumArt.src = "placeholder.png";
+    }
+  } catch (error) {
+    console.error("Error obteniendo metadatos:", error);
+    artistaEl.textContent = "Desconocido";
+    tituloEl.textContent = "Sin información";
+    albumArt.src = "placeholder.png";
+  }
+}
+
+setInterval(obtenerMetadata, 15000);
+obtenerMetadata();
