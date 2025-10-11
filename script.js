@@ -12,7 +12,7 @@ const albumArt = document.getElementById("album-art");
 let isPlaying = false;
 
 // URL del proxy en Render
-const URL_PROXY = "https://proxy-metadatos.onrender.com/metadata";
+const URL_PROXY = "https://proxy-metadatos-ugf5.onrender.com";
 
 // Reproducir / Pausar
 playPauseBtn.addEventListener("click", () => {
