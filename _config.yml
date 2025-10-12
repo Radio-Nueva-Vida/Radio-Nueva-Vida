@@ -1,2 +1,0 @@
-# _config.yml
-include: [_config.yml, service-worker.js]
