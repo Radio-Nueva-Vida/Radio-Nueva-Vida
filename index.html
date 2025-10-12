@@ -184,14 +184,14 @@
   }
 </script>
   <script src="https://cdn.jsdelivr.net/npm/shoutcast-metadata-parser@latest/dist/shoutcast-metadata-parser.min.js"></script>
+
 <script src="script.js"></script>
-  <script>
+
+<script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(() => console.log('✅ Service Worker registrado correctamente.'))
-      .catch(err => console.error('Error al registrar SW:', err));
-  });
+  navigator.serviceWorker.register('/service-worker.js') 
+    .then(() => console.log('✅ Service Worker registrado correctamente.'))
+    .catch(err => console.error('Error al registrar SW:', err));
 }
 </script>
 </body>
