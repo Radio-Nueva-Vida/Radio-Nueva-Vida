@@ -4,7 +4,7 @@
 const CACHE_NAME = 'radio-nv-cache-v1';
 
 const urlsToCache = [
-  './',                         // Página principal
+  './',
   './index.html',
   './estilos.css',
   './estilos-responsive.css',
@@ -13,7 +13,8 @@ const urlsToCache = [
   './icono-512.png',
   './logo-nueva-vida.png',
   './ondas-animadas.svg',
-  './favicono.png'
+  './favicono.png',
+  './placeholder.png'
 ];
 
 // 1. Instalación: carga inicial de caché
@@ -54,3 +55,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+
