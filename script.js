@@ -38,9 +38,16 @@ volumenControl.addEventListener("input", (e) => {
 });
 
 // 4. LÓGICA DE METADATOS
+let ultimoArtista = "";
+let ultimoTitulo = "";
+let ultimaCaratula = "placeholder.png"; // carátula por defecto
+
 async function obtenerMetadata() {
   try {
-    const res = await fetch("https://proxy-metadatos-ugf5.onrender.com/metadata");
+    // ✅ Forzar actualización sin caché
+    const res = await fetch(`https://proxy-metadatos-ugf5.onrender.com/metadata?_=${Date.now()}`, {
+      cache: "no-store"
+    });
     const data = await res.json();
 
     let artist = data.artist ? data.artist.trim() : "";
@@ -55,7 +62,6 @@ async function obtenerMetadata() {
 
     // 🔹 Corrección 2: Detectar si el orden está invertido (p. ej. "Canción - Artista")
     if (title && artist && title.split(" ").length < artist.split(" ").length) {
-      // No hacemos nada si parece correcto, pero si no hay artista claro, intercambiamos
       if (artist.toLowerCase().includes("desconocido") || !artist) {
         const temp = artist;
         artist = title;
@@ -64,12 +70,14 @@ async function obtenerMetadata() {
     }
 
     // 🔹 Corrección 3: Evitar mostrar "Desconocido" o vacíos
-    if (!artist || artist.toLowerCase().includes("desconocido")) {
-      artist = " ";
-    }
-    if (!title || title.toLowerCase().includes("desconocido") || title.toLowerCase().includes("sin título")) {
-      title = " ";
-    }
+    if (!artist || artist.toLowerCase().includes("desconocido")) artist = "";
+    if (!title || title.toLowerCase().includes("desconocido") || title.toLowerCase().includes("sin título")) title = "";
+
+    // 🔹 Nueva mejora: Evitar actualizar si no hay cambios reales
+    if (artist === ultimoArtista && title === ultimoTitulo) return;
+
+    ultimoArtista = artist;
+    ultimoTitulo = title;
 
     // Actualizar los campos visibles
     artistaEl.textContent = artist || " ";
