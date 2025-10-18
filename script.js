@@ -1,4 +1,4 @@
-// 1. DEFINICIÓN DE CONSTANTES (IDs CORREGIDOS)
+// 1. DEFINICIÓN DE CONSTANTES
 const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const artistaEl = document.getElementById("artist");
@@ -11,58 +11,59 @@ const playIcon = document.getElementById("iconoPlay");
 const pauseIcon = document.getElementById("iconoPause");
 
 // 2. FUNCIÓN DE REPRODUCCIÓN Y CONTROL DE ÍCONOS
-// Este listener gestiona el click y actualiza los íconos.
 playPauseBtn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
 });
 
-// Listeners para actualizar íconos basados en el estado del audio (incluso si se detiene por red)
 audio.addEventListener('play', () => {
-    playIcon.style.display = "none";
-    pauseIcon.style.display = "block";
+  playIcon.style.display = "none";
+  pauseIcon.style.display = "block";
 });
 
 audio.addEventListener('pause', () => {
-    playIcon.style.display = "block";
-    pauseIcon.style.display = "none";
+  playIcon.style.display = "block";
+  pauseIcon.style.display = "none";
 });
 
 // 3. CONTROL DE VOLUMEN
 volumenControl.addEventListener("input", (e) => {
-  audio.volume = e.target.value;
+  audio.volume = e.target.value;
 });
 
-// 4. LÓGICA DE METADATOS
-async function obtenerMetadata() {
-  try {
-    const res = await fetch("https://proxy-metadatos-ugf5.onrender.com/metadata");
-    const data = await res.json();
+// 4. LÓGICA DE METADATOS CON SHOUTCAST ICY
+let parser;
 
-    artistaEl.textContent = data.artist || "Desconocido";
-    tituloEl.textContent = data.title || "Sin título";
+audio.addEventListener('play', () => {
+  if (!parser) {
+    parser = new ShoutcastMetadataParser(audio);
+    parser.addEventListener('metadata', async (event) => {
+      const streamTitle = event.detail.StreamTitle || "";
+      const [artist, title] = streamTitle.split(" - ").map(s => s.trim());
 
-    const query = encodeURIComponent(`${data.artist} ${data.title}`);
-    const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
-    const itunesData = await itunesRes.json();
+      artistaEl.textContent = artist || "Desconocido";
+      tituloEl.textContent = title || "Sin título";
 
-    if (itunesData.results && itunesData.results.length > 0) {
-      const artwork = itunesData.results[0].artworkUrl100;
-      albumArt.src = artwork.replace("100x100", "512x512");
-    } else {
-      albumArt.src = "placeholder.png";
-    }
-  } catch (error) {
-    console.error("Error obteniendo metadatos:", error);
-    artistaEl.textContent = "Desconocido";
-    tituloEl.textContent = "Sin información";
-    albumArt.src = "placeholder.png";
-  }
-}
-
-// Iniciar la obtención de metadatos y establecer el intervalo
-obtenerMetadata();
-setInterval(obtenerMetadata, 15000);
+      if (artist && title) {
+        try {
+          const query = encodeURIComponent(`${artist} ${title}`);
+          const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
+          const itunesData = await itunesRes.json();
+          if (itunesData.results && itunesData.results.length > 0) {
+            const artwork = itunesData.results[0].artworkUrl100;
+            albumArt.src = artwork.replace("100x100", "512x512");
+          } else {
+            albumArt.src = "placeholder.png";
+          }
+        } catch {
+          albumArt.src = "placeholder.png";
+        }
+      } else {
+        albumArt.src = "placeholder.png";
+      }
+    });
+  }
+});
