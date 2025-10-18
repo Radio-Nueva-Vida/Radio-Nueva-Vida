@@ -130,82 +130,35 @@
   </style>
 
   <!-- SCRIPT MODAL -->
-  <script>
-    const btnContacto = document.getElementById("btn-contacto");
-    const modal = document.getElementById("modal-contacto");
-    const cerrarModal = document.getElementById("cerrar-modal");
+<script>
+  const btnContacto = document.getElementById("btn-contacto");
+  const modal = document.getElementById("modal-contacto");
+  const cerrarModal = document.getElementById("cerrar-modal");
 
-    btnContacto.onclick = () => modal.classList.remove("oculto");
-    cerrarModal.onclick = () => modal.classList.add("oculto");
-    window.onclick = (e) => { if(e.target === modal) modal.classList.add("oculto"); }
-    document.getElementById("formulario-contacto").onsubmit = (e) => {
-      e.preventDefault();
-      alert("✅ Gracias por escribirnos. Pronto te responderemos.");
-      modal.classList.add("oculto");
-    }
-  </script>
+  btnContacto.onclick = () => modal.classList.remove("oculto");
+  cerrarModal.onclick = () => modal.classList.add("oculto");
+  window.onclick = (e) => { if (e.target === modal) modal.classList.add("oculto"); }
+  document.getElementById("formulario-contacto").onsubmit = (e) => {
+    e.preventDefault();
+    alert("✅ Gracias por escribirnos. Pronto te responderemos.");
+    modal.classList.add("oculto");
+  }
+</script>
 
-  <!-- PARSER DE METADATOS SHOUTCAST -->
-  <script src="https://unpkg.com/shoutcast-metadata-parser@latest/umd/shoutcast-metadata-parser.min.js"></script>
-
-  <!-- SCRIPT PRINCIPAL -->
-  <script>
-    // CONSTANTES
-    const audio = document.getElementById("audio");
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    const artistaEl = document.getElementById("artist");
-    const tituloEl = document.getElementById("title");
-    const albumArt = document.getElementById("cover");
-    const volumenControl = document.getElementById("volumeControl");
-    const playIcon = document.getElementById("iconoPlay");
-    const pauseIcon = document.getElementById("iconoPause");
-
-    // PLAY/PAUSE
-    playPauseBtn.addEventListener("click", () => {
-      audio.paused ? audio.play() : audio.pause();
-    });
-    audio.addEventListener('play', () => { playIcon.style.display="none"; pauseIcon.style.display="block"; });
-    audio.addEventListener('pause', () => { playIcon.style.display="block"; pauseIcon.style.display="none"; });
-
-    // VOLUMEN
-    volumenControl.addEventListener("input", (e) => { audio.volume = e.target.value; });
-
-    // METADATOS SHOUTCAST
-    let parser;
-    audio.addEventListener('play', () => {
-      if(!parser){
-        parser = new ShoutcastMetadataParser(audio);
-        parser.addEventListener('metadata', async (event) => {
-          const streamTitle = event.detail.StreamTitle || "";
-          const [artist, title] = streamTitle.split(" - ").map(s => s.trim());
-          artistaEl.textContent = artist || "Desconocido";
-          tituloEl.textContent = title || "Sin título";
-
-          if(artist && title){
-            try{
-              const query = encodeURIComponent(`${artist} ${title}`);
-              const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
-              const itunesData = await itunesRes.json();
-              if(itunesData.results && itunesData.results.length > 0){
-                const artwork = itunesData.results[0].artworkUrl100;
-                albumArt.src = artwork.replace("100x100","512x512");
-              } else { albumArt.src="placeholder.png"; }
-            } catch { albumArt.src="placeholder.png"; }
-          } else { albumArt.src="placeholder.png"; }
-        });
-      }
-    });
-
-    // SERVICE WORKER
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(()=>console.log('✅ Service Worker registrado correctamente.'))
-        .catch(err=>console.error('Error al registrar SW:', err));
-    }
-  </script>
-<!-- SCRIPT PRINCIPAL -->
+<!-- SCRIPT PRINCIPAL DEL REPRODUCTOR -->
 <script src="script.js"></script>
+
+<!-- SERVICE WORKER (opcional, solo si tienes el archivo) -->
+<!--
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(()=>console.log('✅ Service Worker registrado correctamente.'))
+    .catch(err=>console.error('Error al registrar SW:', err));
+}
+</script>
+-->
+
 </body>
 </html>
 
-</html>
