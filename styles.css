@@ -100,12 +100,12 @@ body {
   display: block;
 }
 
-/* === BOTÓN CONTACTO FIJO Y MODERNO (versión armónica) === */
+/* === BOTÓN CONTACTO FIJO, ELEGANTE Y ARMÓNICO === */
 .boton-contacto {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  background-color: #1e4d5f; /* Azul petróleo oscuro */
+  background-color: #204a57; /* azul petróleo elegante */
   color: #ffffff;
   font-weight: 600;
   border: none;
@@ -113,13 +113,19 @@ body {
   font-size: 15px;
   border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
   transition: all 0.3s ease;
 }
 
 .boton-contacto:hover {
-  background-color: #2a6f84; /* Azul verdoso más claro al pasar el mouse */
-  transform: scale(1.06);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  background-color: #2f6775; /* tono más claro al pasar el mouse */
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* asegúrate que el contenedor principal no interfiera */
+.container {
+  position: relative;
+  z-index: 1;
 }
