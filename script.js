@@ -28,28 +28,42 @@ volumenControl.addEventListener("input", (e) => {
   audio.volume = e.target.value;
 });
 
-// 4. FUNCIÓN PARA OBTENER METADATOS
+// 4. LÓGICA DE METADATOS CON FALLBACK DE IMAGEN
 async function obtenerMetadata() {
   try {
-    const res = await fetch("https://proxy-metadatos.onrender.com/metadata?_=" + Date.now());
+    const res = await fetch("https://proxy-metadatos.onrender.com/metadata");
     const data = await res.json();
 
-    const artist = data.artist || "Desconocido";
-    const title = data.title || "Sin título";
+    const artista = data.artist || "Desconocido";
+    const titulo = data.title || "Sin título";
 
-    artistaEl.textContent = artist;
-    tituloEl.textContent = title;
+    document.getElementById("artist").textContent = artista;
+    document.getElementById("title").textContent = titulo;
 
-    // 🔸 Intentar obtener la carátula
-    const artwork = await obtenerCaratula(artist, title);
-    albumArt.src = artwork;
+    // Buscar carátula en iTunes
+    const query = encodeURIComponent(`${artista} ${titulo}`);
+    const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
+    const itunesData = await itunesRes.json();
+
+    if (itunesData.results && itunesData.results.length > 0) {
+      const artwork = itunesData.results[0].artworkUrl100;
+      document.getElementById("cover").src = artwork.replace("100x100", "512x512");
+    } else {
+      // 🎨 Imagen genérica gospel de respaldo
+      document.getElementById("cover").src = "coversgospelgeneric.png";
+    }
   } catch (error) {
     console.error("Error obteniendo metadatos:", error);
-    artistaEl.textContent = "Desconocido";
-    tituloEl.textContent = "Sin información";
-    albumArt.src = "placeholder.png";
+    document.getElementById("artist").textContent = "Desconocido";
+    document.getElementById("title").textContent = "Sin información";
+    // Si hay error, mostrar también la portada genérica
+    document.getElementById("cover").src = "coversgospelgeneric.png";
   }
 }
+
+// Ejecutar al inicio y cada 7 segundos
+obtenerMetadata();
+setInterval(obtenerMetadata, 7000);
 
 // 5. FUNCIÓN PARA OBTENER CARÁTULA (iTunes → Last.fm → Genérico)
 async function obtenerCaratula(artist, title) {
