@@ -128,3 +128,23 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* === CORRECCIÓN FINAL: EVITAR QUE EL BODY CENTRE ELEMENTOS FIJOS === */
+body {
+  display: block !important;  /* Rompe el centrado que empuja al botón */
+  height: auto !important;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* Reaplicamos centrado sólo al reproductor */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
