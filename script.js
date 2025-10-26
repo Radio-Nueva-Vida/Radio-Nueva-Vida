@@ -99,25 +99,4 @@ async function obtenerCaratula(artist, title) {
 
 // 6. ACTUALIZACIÓN PERIÓDICA
 obtenerMetadata();
-setInterval(obtenerMetadata, 15000);
-
-// --- CONTROL DEL MODAL DE CONTACTO ---
-const btnContacto = document.getElementById("btn-contacto");
-const modal = document.getElementById("modal-contacto");
-const cerrarModal = document.getElementById("cerrar-modal");
-const formulario = document.getElementById("formulario-contacto");
-
-if (btnContacto && modal && cerrarModal && formulario) {
-  btnContacto.addEventListener("click", () => modal.classList.remove("oculto"));
-  cerrarModal.addEventListener("click", () => modal.classList.add("oculto"));
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.classList.add("oculto");
-  });
-  formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
-    alert("✅ Gracias por escribirnos. Pronto te responderemos.");
-    modal.classList.add("oculto");
-    formulario.reset();
-  });
-}
-
+setInterval(obtenerMetadata, 7000);
