@@ -8,8 +8,7 @@
   <link rel="stylesheet" href="styles-responsive.css" />
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
-  <script id='sonic_js' data-port='8626' src='https://server.streamcasthd.com/cp/widgets.js?r=342'></script>
-
+  <!-- Nota: no cargamos aquí el script del parser roto -->
 </head>
 <body>
   <div class="container">
@@ -40,19 +39,22 @@
     </div>
 
     <div class="icons">
-      <a href="radio-nuevavida.m3u" download><img src="icon-wmp.png" alt="WMP"></a>
-      <a href="radio-nuevavida.m3u" download><img src="icon-winamp.png" alt="Winamp"></a>
-      <a href="radio-nuevavida.m3u" download><img src="icon-vlc.png" alt="VLC"></a>
-      <a href="https://radios.solumedia.com:6292/stream?icy=http" target="_blank"><img src="icon-externo.png" alt="Abrir en reproductor externo"></a>
+      <!-- Enlaces oficiales ArgentinaStream / SonicPanel (descargan el formato correcto) -->
+      <a href="https://server.streamcasthd.com/cp/links.php?p=8626&m=pls" download><img src="icon-winamp.png" alt="Winamp"></a>
+      <a href="https://server.streamcasthd.com/cp/links.php?p=8626&m=asx" download><img src="icon-wmp.png" alt="Windows Media Player"></a>
+      <a href="https://server.streamcasthd.com/cp/links.php?p=8626&m=pls" download><img src="icon-vlc.png" alt="VLC"></a>
+      <a href="https://server.streamcasthd.com/8626/stream" target="_blank"><img src="icon-externo.png" alt="Abrir en reproductor externo"></a>
     </div>
 
-    <audio id="audio" src="https://radios.solumedia.com:6292/stream?icy=http" preload="none"></audio>
+    <!-- audio: URL del stream actualizada -->
+    <audio id="audio" src="https://server.streamcasthd.com/8626/stream" preload="none"></audio>
   </div>
 
-<!-- BOTÖN DE CONTACTO -->
-<button id="btn-contacto" class="boton-contacto">
-  📬 Contáctanos
-</button>
+  <!-- ICONO FLOTANTE DE CONTACTO (usa una imagen pequeña para integrar) -->
+  <!-- Asegurate de subir 'icon-contacto.png' en la raíz o ajustar la ruta -->
+  <button id="btn-contacto" class="boton-contacto">
+    <img src="icon-contacto.png" alt="Contacto" width="28" height="28">
+  </button>
 
   <!-- MODAL DE CONTACTO -->
   <div id="modal-contacto" class="modal oculto">
@@ -74,37 +76,50 @@
     </div>
   </div>
 
-  <!-- ESTILOS DEL MODAL Y BOTÓN -->
+  <!-- ESTILOS DEL MODAL Y BOTÓN (mantengo tus estilos inline como estaban) -->
   <style>
     .boton-contacto {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      background-color: #339999;
+      bottom: 25px;
+      right: 25px;
+      background-color: #204a57; /* azul petróleo, combina con tu fondo */
       color: #ffffff;
-      font-weight: bold;
+      font-weight: 600;
       border: none;
-      padding: 12px 20px;
+      padding: 10px;
       font-size: 15px;
-      border-radius: 12px;
+      border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      z-index: 1000;
-      transition: 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .boton-contacto:hover { background-color: #2a7f7f; }
+    .boton-contacto img { display: block; }
+
+    .boton-contacto:hover {
+      background-color: #2f6775;
+      transform: scale(1.06);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
 
     .modal {
       display: flex;
       justify-content: center;
       align-items: center;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.6);
-      z-index: 999;
+      z-index: 9998;
     }
-    .modal.oculto { display: none; }
+    .modal.oculto {
+      display: none;
+    }
     .modal-contenido {
       background-color: #002b36;
       padding: 2rem;
@@ -116,51 +131,80 @@
       font-family: 'Segoe UI', sans-serif;
       animation: fadeIn 0.4s ease-out;
     }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
-    .cerrar { float: right; font-size: 26px; font-weight: bold; color: #ffd166; cursor: pointer; }
-    .modal-contenido h2 { margin-bottom:1rem; color:#ffd166; text-align:center; }
-    form label { display:block; margin:12px 0 6px; font-size:0.95rem; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .cerrar {
+      float: right;
+      font-size: 26px;
+      font-weight: bold;
+      color: #ffd166;
+      cursor: pointer;
+    }
+    .modal-contenido h2 {
+      margin-bottom: 1rem;
+      color: #ffd166;
+      text-align: center;
+    }
+    form label { display: block; margin: 12px 0 6px; font-size: 0.95rem; }
     form input, form textarea {
-      width: 100%; padding:10px; border-radius:10px; border:none; font-size:1rem; background:#f8f8f8; color:#000;
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      background: #f8f8f8;
+      color: #000;
     }
     form button[type="submit"] {
-      margin-top: 20px; width:100%; background-color:#339999; color:white;
-      padding:12px; border:none; font-size:1rem; border-radius:12px; font-weight:bold; cursor:pointer;
+      margin-top: 20px;
+      width: 100%;
+      background-color: #204a57;
+      color: white;
+      padding: 12px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
       transition: background-color 0.3s;
     }
-    form button[type="submit"]:hover { background-color:#2a7f7f; }
+    form button[type="submit"]:hover {
+      background-color: #2f6775;
+    }
   </style>
 
-  <!-- SCRIPT MODAL -->
-<script>
-  const btnContacto = document.getElementById("btn-contacto");
-  const modal = document.getElementById("modal-contacto");
-  const cerrarModal = document.getElementById("cerrar-modal");
+  <!-- SCRIPT DEL MODAL (igual que antes, ahora apuntando al id btn-contacto) -->
+  <script>
+    const btnContacto = document.getElementById("btn-contacto");
+    const modal = document.getElementById("modal-contacto");
+    const cerrarModal = document.getElementById("cerrar-modal");
+    const formulario = document.getElementById("formulario-contacto");
 
-  btnContacto.onclick = () => modal.classList.remove("oculto");
-  cerrarModal.onclick = () => modal.classList.add("oculto");
-  window.onclick = (e) => { if (e.target === modal) modal.classList.add("oculto"); }
-  document.getElementById("formulario-contacto").onsubmit = (e) => {
-    e.preventDefault();
-    alert("✅ Gracias por escribirnos. Pronto te responderemos.");
-    modal.classList.add("oculto");
-  }
-</script>
+    btnContacto.onclick = () => modal.classList.remove("oculto");
+    cerrarModal.onclick = () => modal.classList.add("oculto");
+    window.onclick = (e) => { if (e.target === modal) modal.classList.add("oculto"); }
+    formulario.onsubmit = (e) => {
+      e.preventDefault();
+      alert("✅ Gracias por escribirnos. Pronto te responderemos.");
+      modal.classList.add("oculto");
+      formulario.reset();
+    }
+  </script>
 
-<!-- SCRIPT PRINCIPAL DEL REPRODUCTOR -->
-<script src="script.js"></script>
+  <!-- (NO cargamos shoutcast-metadata-parser porque estaba roto) -->
 
-<!-- SERVICE WORKER (opcional, solo si tienes el archivo) -->
-<!--
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(()=>console.log('✅ Service Worker registrado correctamente.'))
-    .catch(err=>console.error('Error al registrar SW:', err));
-}
-</script>
--->
+  <!-- SCRIPT PRINCIPAL EXTERNO (tu script.js actualizado) -->
+  <script src="script.js"></script>
 
+  <!-- SERVICE WORKER (opcional: descomenta si tienes service-worker.js en la raíz) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      // navigator.serviceWorker.register('/service-worker.js')
+      //   .then(() => console.log('✅ Service Worker registrado correctamente.'))
+      //   .catch(err => console.error('Error al registrar SW:', err));
+    }
+  </script>
 </body>
 </html>
-
