@@ -8,95 +8,117 @@ const volumenControl = document.getElementById("volumeControl");
 const playIcon = document.getElementById("iconoPlay");
 const pauseIcon = document.getElementById("iconoPause");
 
+// -----------------------------------------------------------
 // 2. CONTROL DE REPRODUCCIÓN
+// -----------------------------------------------------------
+
 playPauseBtn.addEventListener("click", () => {
   audio.paused ? audio.play() : audio.pause();
 });
 
-audio.addEventListener('play', () => {
+audio.addEventListener("play", () => {
   playIcon.style.display = "none";
   pauseIcon.style.display = "block";
 });
 
-audio.addEventListener('pause', () => {
+audio.addEventListener("pause", () => {
   playIcon.style.display = "block";
   pauseIcon.style.display = "none";
 });
 
+// -----------------------------------------------------------
 // 3. CONTROL DE VOLUMEN
+// -----------------------------------------------------------
+
 volumenControl.addEventListener("input", (e) => {
   audio.volume = e.target.value;
 });
 
-// 4. LÓGICA DE METADATOS CON FALLBACK DE IMAGEN
+// -----------------------------------------------------------
+// 4. OBTENER METADATOS DESDE SONICPANEL (ArgentinaStream)
+// -----------------------------------------------------------
+// Endpoint oficial de SonicPanel:
+const METADATA_URL = "https://server.streamcasthd.com/cp/get_info.php?p=8626";
+
 async function obtenerMetadata() {
   try {
-    const res = await fetch("https://proxy-metadatos.onrender.com/metadata");
+    const res = await fetch(METADATA_URL);
     const data = await res.json();
 
-    const artista = data.artist || "Desconocido";
+    // 📌 SonicPanel devuelve: title, art, bitrate, listeners, etc.
     const titulo = data.title || "Sin título";
+    const portadaSP = data.art || null;
 
-    document.getElementById("artist").textContent = artista;
-    document.getElementById("title").textContent = titulo;
+    // Formato esperado de título de SonicPanel: "Artista - Canción"
+    let artista = "Desconocido";
+    let cancion = titulo;
 
-    // Buscar carátula en iTunes
-    const query = encodeURIComponent(`${artista} ${titulo}`);
-    const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
-    const itunesData = await itunesRes.json();
-
-    if (itunesData.results && itunesData.results.length > 0) {
-      const artwork = itunesData.results[0].artworkUrl100;
-      document.getElementById("cover").src = artwork.replace("100x100", "512x512");
-    } else {
-      // 🎨 Imagen genérica gospel de respaldo
-      document.getElementById("cover").src = "coversgospelgeneric.png";
+    if (titulo.includes(" - ")) {
+      const partes = titulo.split(" - ");
+      artista = partes[0].trim();
+      cancion = partes[1].trim();
     }
+
+    artistaEl.textContent = artista;
+    tituloEl.textContent = cancion;
+
+    // Si SonicPanel trae la portada → usarla directamente (HD)
+    if (portadaSP && portadaSP !== "" && portadaSP !== "No Image") {
+      albumArt.src = portadaSP;
+      return;
+    }
+
+    // Caso contrario → buscar carátula externa
+    const caratula = await obtenerCaratula(artista, cancion);
+    albumArt.src = caratula;
+
   } catch (error) {
-    console.error("Error obteniendo metadatos:", error);
-    document.getElementById("artist").textContent = "Desconocido";
-    document.getElementById("title").textContent = "Sin información";
-    // Si hay error, mostrar también la portada genérica
-    document.getElementById("cover").src = "coversgospelgeneric.png";
+    console.error("Error obteniendo metadatos SonicPanel:", error);
+    artistaEl.textContent = "Desconocido";
+    tituloEl.textContent = "Sin información";
+    albumArt.src = "coversgospelgeneric.png";
   }
 }
 
-// Ejecutar al inicio y cada 7 segundos
-obtenerMetadata();
-setInterval(obtenerMetadata, 7000);
+// -----------------------------------------------------------
+// 5. FUNCIÓN DE RESPALDO (iTunes → LastFM → Genérico)
+// -----------------------------------------------------------
 
-// 5. FUNCIÓN PARA OBTENER CARÁTULA (iTunes → Last.fm → Genérico)
 async function obtenerCaratula(artist, title) {
   try {
-    // 🔹 1. Buscar en iTunes
+    // 1) iTunes
     const query = encodeURIComponent(`${artist} ${title}`);
-    const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
-    const itunesData = await itunesRes.json();
+    const itRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
+    const itData = await itRes.json();
 
-    if (itunesData.results && itunesData.results.length > 0) {
-      const artwork = itunesData.results[0].artworkUrl100;
-      return artwork.replace("100x100", "512x512");
+    if (itData.results?.length > 0) {
+      return itData.results[0].artworkUrl100.replace("100x100", "512x512");
     }
 
-    // 🔹 2. Buscar en Last.fm (sin API key, usando su proxy público)
-    const lastfmRes = await fetch(`https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=cb51c3edc6a20efb0d7b7a8e8c9c25aa&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(title)}&format=json`);
-    const lastfmData = await lastfmRes.json();
+    // 2) LastFM
+    const lfRes = await fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=cb51c3edc6a20efb0d7b7a8e8c9c25aa&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(title)}&format=json`
+    );
+    const lfData = await lfRes.json();
 
-    if (lastfmData?.track?.album?.image?.length > 0) {
-      // Buscar la imagen de mayor tamaño disponible
-      const images = lastfmData.track.album.image;
-      const largeImage = images[images.length - 1]["#text"];
-      if (largeImage) return largeImage;
+    if (lfData?.track?.album?.image?.length > 0) {
+      const images = lfData.track.album.image;
+      const hd = images[images.length - 1]["#text"];
+      if (hd) return hd;
     }
 
-    // 🔹 3. Imagen genérica
-    return "covers/gospel-generic.png";
+    // 3) Genérica
+    return "coversgospelgeneric.png";
+
   } catch (err) {
-    console.error("Error obteniendo carátula:", err);
-    return "covers/gospel-generic.png";
+    console.error("Fallback error:", err);
+    return "coversgospelgeneric.png";
   }
 }
 
-// 6. ACTUALIZACIÓN PERIÓDICA
+// -----------------------------------------------------------
+// 6. ACTUALIZACIÓN AUTOMÁTICA
+// -----------------------------------------------------------
+
 obtenerMetadata();
-setInterval(obtenerMetadata, 7000);
+setInterval(obtenerMetadata, 10000);
