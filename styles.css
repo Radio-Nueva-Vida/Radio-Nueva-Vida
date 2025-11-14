@@ -128,3 +128,31 @@ body {
   height: 28px;
   filter: brightness(1.4);
 }
+
+.boton-contacto {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  z-index: 9999;
+
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.boton-contacto img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boton-contacto img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
