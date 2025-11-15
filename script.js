@@ -9,7 +9,7 @@ const playIcon = document.getElementById("iconoPlay");
 const pauseIcon = document.getElementById("iconoPause");
 
 // Portada oficial personalizada (CAMBIA EL NOMBRE SI HACE FALTA)
-const PORTADA_DEFAULT = "rnv-default.png";
+const PORTADA_DEFAULT = "coversgospelgeneric.png";
 
 // -----------------------------------------------------------
 // 2. REPRODUCCIÓN
