@@ -1,4 +1,4 @@
-// 1. CONSTANTES
+// 1. DEFINICIÓN DE CONSTANTES
 const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const artistaEl = document.getElementById("artist");
@@ -8,12 +8,10 @@ const volumenControl = document.getElementById("volumeControl");
 const playIcon = document.getElementById("iconoPlay");
 const pauseIcon = document.getElementById("iconoPause");
 
-// Portada oficial personalizada (CAMBIA EL NOMBRE SI HACE FALTA)
-const PORTADA_DEFAULT = "coversgospelgeneric.png";
+// -----------------------------------------------------------
+// 2. CONTROL DE REPRODUCCIÓN
+// -----------------------------------------------------------
 
-// -----------------------------------------------------------
-// 2. REPRODUCCIÓN
-// -----------------------------------------------------------
 playPauseBtn.addEventListener("click", () => {
   audio.paused ? audio.play() : audio.pause();
 });
@@ -29,15 +27,17 @@ audio.addEventListener("pause", () => {
 });
 
 // -----------------------------------------------------------
-// 3. VOLUMEN
+// 3. CONTROL DE VOLUMEN
 // -----------------------------------------------------------
+
 volumenControl.addEventListener("input", (e) => {
   audio.volume = e.target.value;
 });
 
 // -----------------------------------------------------------
-// 4. METADATOS SONICPANEL
+// 4. OBTENER METADATOS DESDE SONICPANEL (ArgentinaStream)
 // -----------------------------------------------------------
+// Endpoint oficial de SonicPanel:
 const METADATA_URL = "https://server.streamcasthd.com/cp/get_info.php?p=8626";
 
 async function obtenerMetadata() {
@@ -45,88 +45,80 @@ async function obtenerMetadata() {
     const res = await fetch(METADATA_URL);
     const data = await res.json();
 
-    const titulo = data.title || "";
-    const portadaSP = data.art || "";
+    // 📌 SonicPanel devuelve: title, art, bitrate, listeners, etc.
+    const titulo = data.title || "Sin título";
+    const portadaSP = data.art || null;
 
-    let artista = "";
-    let cancion = "";
+    // Formato esperado de título de SonicPanel: "Artista - Canción"
+    let artista = "Desconocido";
+    let cancion = titulo;
 
-    // Formato: "Artista - Canción"
     if (titulo.includes(" - ")) {
       const partes = titulo.split(" - ");
       artista = partes[0].trim();
       cancion = partes[1].trim();
     }
 
-    // Mostrar limpio, sin textos feos
     artistaEl.textContent = artista;
     tituloEl.textContent = cancion;
 
-    // Si SonicPanel trae portada → usarla
+    // Si SonicPanel trae la portada → usarla directamente (HD)
     if (portadaSP && portadaSP !== "" && portadaSP !== "No Image") {
       albumArt.src = portadaSP;
       return;
     }
 
-    // Caso contrario → buscar fallback externo
+    // Caso contrario → buscar carátula externa
     const caratula = await obtenerCaratula(artista, cancion);
-
-    // Si viene vacía → usar la predeterminada
-    albumArt.src = caratula || PORTADA_DEFAULT;
+    albumArt.src = caratula;
 
   } catch (error) {
     console.error("Error obteniendo metadatos SonicPanel:", error);
-    artistaEl.textContent = "";
-    tituloEl.textContent = "";
-    albumArt.src = PORTADA_DEFAULT;
+    artistaEl.textContent = "Desconocido";
+    tituloEl.textContent = "Sin información";
+    albumArt.src = "coversgospelgeneric.png";
   }
 }
 
 // -----------------------------------------------------------
-// 5. FUNCIÓN DE CARÁTULA (iTunes → LastFM → Portada default)
+// 5. FUNCIÓN DE RESPALDO (iTunes → LastFM → Genérico)
 // -----------------------------------------------------------
+
 async function obtenerCaratula(artist, title) {
   try {
-    if (!artist || !title) return PORTADA_DEFAULT;
-
-    // iTunes
+    // 1) iTunes
     const query = encodeURIComponent(`${artist} ${title}`);
     const itRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
     const itData = await itRes.json();
 
     if (itData.results?.length > 0) {
-      const url = itData.results[0].artworkUrl100.replace("100x100", "512x512");
-      return url;
+      return itData.results[0].artworkUrl100.replace("100x100", "512x512");
     }
 
-    // LastFM
+    // 2) LastFM
     const lfRes = await fetch(
       `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=cb51c3edc6a20efb0d7b7a8e8c9c25aa&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(title)}&format=json`
     );
     const lfData = await lfRes.json();
 
-    const img = lfData?.track?.album?.image?.slice(-1)[0]["#text"];
-    if (img) return img;
+    if (lfData?.track?.album?.image?.length > 0) {
+      const images = lfData.track.album.image;
+      const hd = images[images.length - 1]["#text"];
+      if (hd) return hd;
+    }
 
-    // Fallback final
-    return PORTADA_DEFAULT;
+    // 3) Genérica
+    return "coversgospelgeneric.png";
 
   } catch (err) {
     console.error("Fallback error:", err);
-    return PORTADA_DEFAULT;
+    return "coversgospelgeneric.png";
   }
 }
 
 // -----------------------------------------------------------
-// 6. FALLBACK SI LA IMAGEN FALLA AL CARGAR
+// 6. ACTUALIZACIÓN AUTOMÁTICA
 // -----------------------------------------------------------
-albumArt.onerror = () => {
-  albumArt.src = PORTADA_DEFAULT;
-};
 
-// -----------------------------------------------------------
-// 7. ACTUALIZACIÓN AUTOMÁTICA
-// -----------------------------------------------------------
 obtenerMetadata();
 setInterval(obtenerMetadata, 10000);
-
