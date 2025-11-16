@@ -53,7 +53,7 @@ async function obtenerMetadata() {
     let artista = "Desconocido";
     let cancion = titulo;
 
-    if (titulo.includes(" - ")) {
+    if (titulo.includes(" - ") && titulo.split(" - ").length >= 2) {
       const partes = titulo.split(" - ");
       artista = partes[0].trim();
       cancion = partes[1].trim();
