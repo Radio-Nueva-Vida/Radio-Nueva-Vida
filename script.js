@@ -62,15 +62,15 @@ async function obtenerMetadata() {
     artistaEl.textContent = artista;
     tituloEl.textContent = cancion;
 
-    // Si SonicPanel trae la portada → usarla directamente (HD)
-    if (portadaSP && portadaSP !== "" && portadaSP !== "No Image") {
-      albumArt.src = portadaSP;
-      return;
-    }
+ // Si SonicPanel trae portada válida → usarla
+if (portadaSP && portadaSP !== "" && portadaSP !== "No Image" && !portadaSP.includes("noimage")) {
+  albumArt.src = portadaSP;
+  return;
+}
 
-    // Caso contrario → buscar carátula externa
-    const caratula = await obtenerCaratula(artista, cancion);
-    albumArt.src = caratula;
+// Si NO hay portada válida → usar imagen genérica directamente
+albumArt.src = "coversgospelgeneric.png";
+
 
   } catch (error) {
     console.error("Error obteniendo metadatos SonicPanel:", error);
