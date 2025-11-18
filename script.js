@@ -69,15 +69,25 @@ albumArt.removeAttribute("srcset");
     artistaEl.textContent = artista;
     tituloEl.textContent = cancion;
 
+    // 1. Define la URL de la imagen que vamos a intentar cargar
+let urlDePortada = "coversgospelgeneric.png"; // Valor por defecto
+    
  // Si SonicPanel trae portada válida → usarla
 if (portadaSP && portadaSP !== "" && portadaSP !== "No Image" && !portadaSP.includes("noimage")) {
-  albumArt.src = portadaSP;
-  return;
+  urlDePortada = portadaSP;
 }
 
-// Si NO hay portada válida → usar imagen genérica directamente
-albumArt.src = "coversgospelgeneric.png";
+// 2. Antes de asignar la URL, configura un manejador de errores
+// Si la imagen que intentamos cargar (portadaSP o la genérica) falla,
+// aseguramos que la carátula genérica sea la que se muestre.
+albumArt.onerror = () => {
+    // Si la imagen real (portadaSP) falla, caemos en la genérica
+    albumArt.src = "coversgospelgeneric.png"; 
+    albumArt.onerror = null; // Evitar un bucle infinito si la genérica también falla
+};
 
+// 3. Asigna la URL de la carátula (real o genérica)
+albumArt.src = urlDePortada;
 
   } catch (error) {
     console.error("Error obteniendo metadatos SonicPanel:", error);
