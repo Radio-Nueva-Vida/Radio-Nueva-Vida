@@ -50,8 +50,11 @@ async function obtenerMetadata() {
     const portadaSP = data.art || null;
 
     // Formato esperado de título de SonicPanel: "Artista - Canción"
-    let artista = "Desconocido";
-    let cancion = titulo;
+let artista = "Desconocido";
+let cancion = titulo;
+
+// Quitar números al inicio de títulos (ej: "05 Canción")
+cancion = cancion.replace(/^\d+\s*/g, "").trim();
 
     if (titulo.includes(" - ") && titulo.split(" - ").length >= 2) {
       const partes = titulo.split(" - ");
