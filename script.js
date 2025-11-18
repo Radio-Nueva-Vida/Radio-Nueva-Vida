@@ -56,6 +56,10 @@ let cancion = titulo;
 // Quitar números al inicio de títulos (ej: "05 Canción")
 cancion = cancion.replace(/^\d+\s*/g, "").trim();
 
+// Resetear la imagen para evitar mostrar fallbacks rotos
+albumArt.src = "";
+albumArt.removeAttribute("srcset");
+
     if (titulo.includes(" - ") && titulo.split(" - ").length >= 2) {
       const partes = titulo.split(" - ");
       artista = partes[0].trim();
