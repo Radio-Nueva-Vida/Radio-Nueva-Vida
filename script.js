@@ -144,4 +144,4 @@ async function obtenerCaratula(artist, title) {
 // -----------------------------------------------------------
 
 obtenerMetadata();
-setInterval(obtenerMetadata, 10000);
+setInterval(obtenerMetadata, 30000);
