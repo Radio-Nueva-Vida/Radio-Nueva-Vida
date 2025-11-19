@@ -69,27 +69,30 @@ albumArt.removeAttribute("srcset");
 artistaEl.textContent = artista;
 tituloEl.textContent = cancion;
 
-// 1. Define la URL de la imagen que vamos a intentar cargar
-let urlDePortada = "coversgospelgeneric.png"; // Valor por defecto
+// 1. Define la URL de la imagen que vamos a intentar cargar (por defecto, la genérica)
+let urlDePortada = "coversgospelgeneric.png";
 
-// Si SonicPanel trae portada válida → usarla
-// (Corrección: portadaSP.includes debe ser portadaSP.includes y la lógica negada)
+// 2. Si SonicPanel trae portada válida → usarla
 if (portadaSP && portadaSP !== "" && portadaSP !== "Sin imagen" && !portadaSP.includes("noimage")) {
   urlDePortada = portadaSP;
+} else {
+  // 3. ¡Si SonicPanel NO trae portada, usamos el FALLBACK DE BÚSQUEDA (iTunes/LastFM)!
+  // Nota: Dado que obtenerCaratula es asíncrona, esperamos el resultado.
+  try {
+      urlDePortada = await obtenerCaratula(artista, cancion); // Llama a la función
+  } catch(e) {
+      console.warn("Fallo la búsqueda externa, usando genérica.", e);
+  }
 }
 
-// 2. Antes de asignar la URL, configura un controlador de errores
-// Si la imagen que intentamos cargar (portadaSP o la genérica) falla,
-// aseguramos que la carátula genérica sea la que se muestre.
+// 4. Configura el controlador de errores (para la carátula real o la de iTunes)
 albumArt.onerror = () => {
-    // Si la imagen real (portadaSP) falla, caemos en la genérica
-    // (Corrección: albumArt.fuente debe ser albumArt.src)
+    // Si la imagen que se asignó falla, forzamos la genérica
     albumArt.src = "coversgospelgeneric.png"; 
-    albumArt.onerror = null; // Evitar un bucle infinito si la genérica también falla
+    albumArt.onerror = null;
 };
 
-// 3. Asigna la URL de la carátula (real o genérica)
-// (Corrección: albumArt.fuente debe ser albumArt.src)
+// 5. Asigna la URL de la carátula (real, de iTunes/LastFM o genérica)
 albumArt.src = urlDePortada;
 
   } catch (error) {
