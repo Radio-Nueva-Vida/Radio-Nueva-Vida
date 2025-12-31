@@ -145,3 +145,41 @@ async function obtenerCaratula(artist, title) {
 
 obtenerMetadata();
 setInterval(obtenerMetadata, 30000);
+
+// -----------------------------------------------------------
+// 7. MEJORAS PARA PWA / ANDROID (NO MODIFICA LÓGICA EXISTENTE)
+// -----------------------------------------------------------
+
+// Guardar estado de reproducción
+audio.addEventListener("play", () => {
+  localStorage.setItem("radio_nv_playing", "true");
+});
+
+audio.addEventListener("pause", () => {
+  localStorage.setItem("radio_nv_playing", "false");
+});
+
+// Reintento automático al volver a la app
+document.addEventListener("visibilitychange", () => {
+  if (
+    document.visibilityState === "visible" &&
+    localStorage.getItem("radio_nv_playing") === "true" &&
+    audio.paused
+  ) {
+    audio.play().catch(() => {});
+  }
+});
+
+// Media Session API (mejora prioridad de audio en Android)
+if ("mediaSession" in navigator) {
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: "Radio Nueva Vida",
+    artist: "Una brújula que orienta tus sentidos hacia Dios",
+    artwork: [
+      { src: "logo-nueva-vida.png", sizes: "512x512", type: "image/png" }
+    ]
+  });
+
+  navigator.mediaSession.setActionHandler("play", () => audio.play());
+  navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+}
