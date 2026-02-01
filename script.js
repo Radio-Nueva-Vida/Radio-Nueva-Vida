@@ -97,8 +97,8 @@ albumArt.src = urlDePortada;
 
   } catch (error) {
     console.error("Error obteniendo metadatos SonicPanel:", error);
-    artistaEl.textContent = "Desconocido";
-    tituloEl.textContent = "Sin información";
+    artistaEl.textContent = "Radio Nueva Vida en Vivo";
+    tituloEl.textContent = "El aire que respiran tus oídos";
     albumArt.src = "coversgospelgeneric.png";
   }
 }
