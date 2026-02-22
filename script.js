@@ -1,4 +1,5 @@
 // 1. DEFINICIÓN DE CONSTANTES
+const USAR_SONICPANEL = false; // cambiar a true cuando vuelvas a Argentina Streaming
 const audio = document.getElementById("audio");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const artistaEl = document.getElementById("artist");
@@ -143,8 +144,10 @@ async function obtenerCaratula(artist, title) {
 // 6. ACTUALIZACIÓN AUTOMÁTICA
 // -----------------------------------------------------------
 
-obtenerMetadata();
-setInterval(obtenerMetadata, 30000);
+if (USAR_SONICPANEL) {
+  obtenerMetadata();
+  setInterval(obtenerMetadata, 30000);
+}
 
 // -----------------------------------------------------------
 // 7. MEJORAS PARA PWA / ANDROID (NO MODIFICA LÓGICA EXISTENTE)
