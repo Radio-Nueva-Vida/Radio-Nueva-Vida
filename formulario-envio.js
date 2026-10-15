@@ -5,7 +5,7 @@
 //   <input type="text" id="web_extra" tabindex="-1" autocomplete="off"
 //          style="position:absolute;left:-9999px" aria-hidden="true">
 
-const URL_BUZON = 'PEGA-AQUI-LA-URL-DE-LA-APLICACION-WEB-QUE-TERMINA-EN-/exec';
+const URL_BUZON = 'https://script.google.com/macros/s/AKfycbzM7t2gZdHDOwpsD1v2jAJEeGEyWOrnjIIfrjmJkfgMR8sDHxKUSTsiZ7O4Dzf-qV6C/exec';
 
 async function enviarPedido() {
   const datos = {
