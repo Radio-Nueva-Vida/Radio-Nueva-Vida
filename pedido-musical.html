@@ -118,7 +118,7 @@
       resize: vertical;
       line-height: 1.4;
     }
-
+    
     input:focus, textarea:focus {
       box-shadow: 0 0 0 2px var(--amarillo);
     }
@@ -166,7 +166,9 @@
     </header>
 
     <form id="formulario-pedido">
-
+      <input id="web_extra" name="web_extra" type="text" tabindex="-1" autocomplete="off"
+       style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+      
       <div class="campo campo-trampa" aria-hidden="true">
         <label for="web_extra">No completar este campo</label>
         <input id="web_extra" name="web_extra" type="text" tabindex="-1" autocomplete="off">
