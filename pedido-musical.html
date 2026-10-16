@@ -75,6 +75,14 @@
     }
 
     .campo { margin-bottom: 15px; }
+    .campo-trampa {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+    button:disabled { opacity: .7; cursor: wait; }
 
     label {
       display: block;
@@ -158,6 +166,11 @@
     </header>
 
     <form id="formulario-pedido">
+
+      <div class="campo campo-trampa" aria-hidden="true">
+        <label for="web_extra">No completar este campo</label>
+        <input id="web_extra" name="web_extra" type="text" tabindex="-1" autocomplete="off">
+      </div>
       <div class="campo">
         <label for="nombre">Nombre completo</label>
         <input id="nombre" name="nombre" type="text" placeholder="Ej: Juan Pérez" autocomplete="name" required>
@@ -177,21 +190,59 @@
       </div>
 
       <button type="submit">Enviar Pedido ✉️</button>
-      <p class="aviso" id="estado" role="status" aria-live="polite">Formulario visual preparado. Falta conectar el script de Google Sheets para habilitar el envío.</p>
+      <p class="aviso" id="estado" role="status" aria-live="polite">Completa tu pedido y envíalo a Radio Nueva Vida.</p>
     </form>
   </main>
 
   <script>
-    /*
-      PENDIENTE DE CONEXIÓN:
-      Inserta aquí el script de envío que ya tienes conectado a Google Sheets
-      (o comparte ese código para integrarlo sin cambiar el diseño).
-      Esta página por ahora muestra el formulario, pero no guarda ni envía pedidos.
-    */
-    document.getElementById("formulario-pedido").addEventListener("submit", function (event) {
+    const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzUIiU_Ro6-xvoAxs57S2XVo_XVGU9czcMpz6YV3IFM5KUoZhLsdwXymwXD3-Ibuys/exec";
+    const formularioPedido = document.getElementById("formulario-pedido");
+    const botonEnviar = formularioPedido.querySelector('button[type="submit"]');
+    const estado = document.getElementById("estado");
+
+    formularioPedido.addEventListener("submit", async function (event) {
       event.preventDefault();
-      document.getElementById("estado").textContent =
-        "Todavía falta conectar el script de Google Sheets. Comparte el código de envío para activar los pedidos.";
+
+      // Campos trampa: los bots suelen completar campos ocultos.
+      const webExtra = document.getElementById("web_extra");
+      if (webExtra && webExtra.value.trim() !== "") return;
+
+      const pedido = {
+        nombre: document.getElementById("nombre").value.trim(),
+        cancion: document.getElementById("cancion").value.trim(),
+        ubicacion: document.getElementById("ubicacion").value.trim(),
+        mensaje: document.getElementById("mensaje").value.trim(),
+        web_extra: ""
+      };
+
+      if (!pedido.nombre || !pedido.cancion) {
+        estado.textContent = "Por favor, completa tu nombre y la canción que deseas pedir.";
+        return;
+      }
+
+      botonEnviar.disabled = true;
+      botonEnviar.textContent = "Enviando pedido...";
+      estado.textContent = "Estamos enviando tu pedido. Espera un momento.";
+
+      try {
+        // text/plain evita la solicitud CORS preflight. En modo no-cors
+        // el navegador oculta la respuesta, por eso no puede confirmar el guardado.
+        await fetch(URL_APPS_SCRIPT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
+          body: JSON.stringify(pedido)
+        });
+
+        formularioPedido.reset();
+        estado.textContent = "Solicitud enviada. ¡Gracias por compartir tu pedido musical! Si no aparece en la hoja, revisa la implementación de Apps Script.";
+      } catch (error) {
+        console.error("Error al enviar el pedido:", error);
+        estado.textContent = "No se pudo enviar el pedido. Comprueba tu conexión e inténtalo nuevamente.";
+      } finally {
+        botonEnviar.disabled = false;
+        botonEnviar.textContent = "Enviar Pedido ✉️";
+      }
     });
   </script>
 </body>
