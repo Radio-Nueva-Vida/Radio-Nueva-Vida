@@ -17,6 +17,13 @@
     <h1>RADIO NUEVA VIDA</h1>
     <p class="subtitulo">radio cristiana online</p>
 
+    <div class="qr-pedidos">
+      <a href="./pedido-musical.html" aria-label="Abrir formulario de pedidos musicales">
+        <img src="qr-pedidos.png" alt="Código QR para pedir canciones" loading="lazy">
+      </a>
+      <p>🎵 ¿Querés pedir una canción? Escaneá el QR o <a href="./pedido-musical.html">hacé clic aquí</a>.</p>
+    </div>
+
     <button id="playPauseBtn" class="play-button" aria-label="Reproducir/Pausar">
       <svg id="iconoPlay" viewBox="0 0 64 64" width="48" height="48" fill="white">
         <polygon points="24,18 48,32 24,46" />
@@ -80,6 +87,33 @@
 
   <!-- ESTILOS DEL MODAL Y BOTÓN (mantengo tus estilos inline como estaban) -->
   <style>
+    .qr-pedidos {
+      width: 100%;
+      margin: 14px auto 18px;
+      text-align: center;
+      color: #fff;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    .qr-pedidos > a:first-child {
+      display: inline-block;
+      padding: 8px;
+      background: #fff;
+      border-radius: 12px;
+      line-height: 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    }
+    .qr-pedidos img {
+      display: block;
+      width: 142px;
+      height: 142px;
+      object-fit: contain;
+    }
+    .qr-pedidos p { margin: 8px 0 0; font-size: 14px; }
+    .qr-pedidos p a { color: #ffd166; font-weight: 700; }
+    @media (max-width: 380px) {
+      .qr-pedidos img { width: 124px; height: 124px; }
+    }
+
     .boton-contacto {
       position: fixed;
       bottom: 25px;
