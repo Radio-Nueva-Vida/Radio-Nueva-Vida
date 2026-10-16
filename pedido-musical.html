@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#002b33">
+  <title>Pedido musical | Radio Nueva Vida</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --fondo: #002b33;
+      --amarillo: #ffca28;
+      --campo: #f7f7f7;
+      --boton: #204a57;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--fondo);
+      color: #fff;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .pedido {
+      width: 100%;
+      max-width: 500px;
+      padding: 16px 14px 28px;
+    }
+
+    .encabezado {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 28px;
+      margin: 0 28px 14px;
+    }
+
+    .encabezado h1 {
+      margin: 0;
+      color: var(--amarillo);
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .sobre { font-size: 19px; }
+
+    .volver {
+      position: absolute;
+      top: -8px;
+      right: -27px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--amarillo);
+      text-decoration: none;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .campo { margin-bottom: 15px; }
+
+    label {
+      display: block;
+      margin: 0 0 6px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 12px;
+      background: var(--campo);
+      color: #202020;
+      font: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input { min-height: 39px; }
+
+    input::placeholder, textarea::placeholder {
+      color: #858585;
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+      line-height: 1.4;
+    }
+
+    input:focus, textarea:focus {
+      box-shadow: 0 0 0 2px var(--amarillo);
+    }
+
+    button {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 8px;
+      padding: 12px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--boton);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:focus-visible, .volver:focus-visible {
+      outline: 2px solid var(--amarillo);
+      outline-offset: 3px;
+    }
+
+    .aviso {
+      margin: 12px 2px 0;
+      color: #ffe5a0;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 360px) {
+      .pedido { padding: 14px 12px 24px; }
+      .encabezado h1 { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="pedido">
+    <header class="encabezado">
+      <span class="sobre" aria-hidden="true">📩</span>
+      <h1>PEDIDO MUSICAL</h1>
+      <a class="volver" href="./index.html" aria-label="Volver a Radio Nueva Vida" title="Volver">×</a>
+    </header>
+
+    <form id="formulario-pedido">
+      <div class="campo">
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" name="nombre" type="text" placeholder="Ej: Juan Pérez" autocomplete="name" required>
+      </div>
+
+      <div class="campo">
+        <input id="cancion" name="cancion" type="text" placeholder="Artista - Nombre Canción" aria-label="Artista y nombre de la canción" required>
+      </div>
+
+      <div class="campo">
+        <input id="ubicacion" name="ubicacion" type="text" placeholder="País - Ciudad" aria-label="País y ciudad" autocomplete="country-name" required>
+      </div>
+
+      <div class="campo">
+        <label for="mensaje">Tu mensaje</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Escríbenos tu mensaje y saludos a familiares y amigos..." rows="4"></textarea>
+      </div>
+
+      <button type="submit">Enviar Pedido ✉️</button>
+      <p class="aviso" id="estado" role="status" aria-live="polite">Formulario visual preparado. Falta conectar el script de Google Sheets para habilitar el envío.</p>
+    </form>
+  </main>
+
+  <script>
+    /*
+      PENDIENTE DE CONEXIÓN:
+      Inserta aquí el script de envío que ya tienes conectado a Google Sheets
+      (o comparte ese código para integrarlo sin cambiar el diseño).
+      Esta página por ahora muestra el formulario, pero no guarda ni envía pedidos.
+    */
+    document.getElementById("formulario-pedido").addEventListener("submit", function (event) {
+      event.preventDefault();
+      document.getElementById("estado").textContent =
+        "Todavía falta conectar el script de Google Sheets. Comparte el código de envío para activar los pedidos.";
+    });
+  </script>
+</body>
+</html>
