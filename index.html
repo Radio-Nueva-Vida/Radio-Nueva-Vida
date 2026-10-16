@@ -54,11 +54,20 @@
   </div>
 
   <!-- ACCESO FLOTANTE AL QR DE PEDIDOS MUSICALES -->
-  <div class="qr-pedidos">
-    <a href="./pedido-musical.html" aria-label="Abrir formulario de pedidos musicales" title="Pedir una canción">
-      <img src="qr-pedidos.png" alt="QR para pedidos musicales" loading="lazy">
-    </a>
-    <p>Escaneá el QR para pedir una canción, o <a href="./pedido-musical.html">abrí el formulario aquí</a>.</p>
+  <div class="qr-pedidos" id="acceso-pedidos">
+    <button type="button" id="abrir-qr-pedidos" aria-label="Mostrar código QR para pedidos musicales" title="Escanear para pedir canciones">
+      <img src="qr-pedidos.png" alt="Mostrar código QR de pedidos musicales" loading="lazy">
+    </button>
+    <p>Escaneá el QR para pedir una canción o <a href="./pedido-musical.html" id="enlace-formulario-pedidos">abrí el formulario aquí</a>.</p>
+  </div>
+  <div class="qr-modal" id="modal-qr-pedidos" aria-hidden="true">
+    <div class="qr-modal-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-qr-pedidos">
+      <button type="button" class="qr-modal-cerrar" id="cerrar-qr-pedidos" aria-label="Cerrar">×</button>
+      <h2 id="titulo-qr-pedidos">Pedidos musicales</h2>
+      <img src="qr-pedidos.png" alt="Código QR para abrir el formulario de pedidos">
+      <p>Escaneá este código con la cámara de tu celular.</p>
+      <a href="./pedido-musical.html" id="abrir-formulario-pedidos">O abrí el formulario aquí</a>
+    </div>
   </div>
 
   <!-- ICONO FLOTANTE DE CONTACTO (usa una imagen pequeña para integrar) -->
@@ -90,66 +99,34 @@
   <!-- ESTILOS DEL MODAL Y BOTÓN (mantengo tus estilos inline como estaban) -->
   <style>
     .qr-pedidos {
-      width: 100%;
-      margin: 14px auto 18px;
-      text-align: center;
-      color: #fff;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
-    .qr-pedidos > a:first-child {
-      display: inline-block;
-      padding: 8px;
-      background: #fff;
-      border-radius: 12px;
-      line-height: 0;
-      box-shadow: 0 4px 14px rgba(0,0,0,.25);
-    }
-    .qr-pedidos img {
-      display: block;
-      width: 142px;
-      height: 142px;
-      object-fit: contain;
-    }
-    .qr-pedidos p { margin: 8px 0 0; font-size: 14px; }
-    .qr-pedidos p a { color: #ffd166; font-weight: 700; }
-    @media (max-width: 380px) {
-      .qr-pedidos img { width: 124px; height: 124px; }
-    }
-
-    .qr-pedidos {
       position: fixed;
       bottom: 25px;
       left: 25px;
       z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      width: 74px;
+      width: 64px;
       text-align: center;
-      color: #fff;
       font-family: "Segoe UI", Arial, sans-serif;
     }
-    .qr-pedidos > a:first-child {
+    .qr-pedidos > button {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 54px;
       height: 54px;
-      padding: 4px;
-      background: #204a57;
+      margin: 0;
+      padding: 5px;
+      border: 0;
       border-radius: 50%;
+      background: #204a57;
       box-shadow: 0 4px 15px rgba(0,0,0,.3);
-      transition: transform .3s ease, background-color .3s ease;
+      cursor: pointer;
+      transition: transform .2s ease, background-color .2s ease;
     }
-    .qr-pedidos > a:first-child:hover {
-      background: #2f6775;
-      transform: scale(1.06);
-    }
-    .qr-pedidos img {
+    .qr-pedidos > button:hover { background: #2f6775; transform: scale(1.06); }
+    .qr-pedidos > button img {
       display: block;
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
       border-radius: 50%;
     }
@@ -158,20 +135,81 @@
       position: absolute;
       left: 0;
       bottom: 62px;
-      width: 180px;
+      width: 190px;
       margin: 0;
-      padding: 8px 10px;
+      padding: 9px 11px;
       border-radius: 8px;
       background: #002b36;
       color: #fff;
       font-size: 12px;
-      line-height: 1.35;
+      line-height: 1.4;
       box-shadow: 0 3px 12px rgba(0,0,0,.3);
     }
     .qr-pedidos:focus-within p, .qr-pedidos:hover p { display: block; }
     .qr-pedidos p a { color: #ffd166; font-weight: 700; }
+    .qr-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0,0,0,.72);
+    }
+    .qr-modal.abierto { display: flex; }
+    .qr-modal-contenido {
+      position: relative;
+      width: min(92vw, 340px);
+      max-height: calc(100dvh - 32px);
+      overflow-y: auto;
+      padding: 22px 18px 20px;
+      border-radius: 18px;
+      background: #002b36;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 12px 36px rgba(0,0,0,.45);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    .qr-modal-contenido h2 {
+      margin: 4px 26px 14px;
+      color: #ffd166;
+      font-size: 20px;
+    }
+    .qr-modal-contenido > img {
+      display: block;
+      width: min(68vw, 240px);
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: contain;
+      margin: 0 auto 12px;
+      padding: 8px;
+      background: #fff;
+      border-radius: 10px;
+      image-rendering: auto;
+    }
+    .qr-modal-contenido p { margin: 8px 0 12px; font-size: 14px; line-height: 1.4; }
+    .qr-modal-contenido > a { color: #ffd166; font-weight: 700; }
+    .qr-modal-cerrar {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #204a57;
+      color: #fff;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+    }
     @media (max-width: 480px) {
       .qr-pedidos { bottom: 25px; left: 25px; }
+      .qr-modal-contenido { width: min(92vw, 340px); padding: 20px 16px 18px; }
+      .qr-modal-contenido > img { width: min(66vw, 220px); }
     }
 
     .boton-contacto {
@@ -287,6 +325,42 @@
       modal.classList.add("oculto");
       formulario.reset();
     }
+  </script>
+
+  <script>
+    const modalQrPedidos = document.getElementById("modal-qr-pedidos");
+    const abrirQrPedidos = document.getElementById("abrir-qr-pedidos");
+    const cerrarQrPedidos = document.getElementById("cerrar-qr-pedidos");
+
+    function mostrarQrPedidos() {
+      modalQrPedidos.classList.add("abierto");
+      modalQrPedidos.setAttribute("aria-hidden", "false");
+      cerrarQrPedidos.focus();
+    }
+    function ocultarQrPedidos() {
+      modalQrPedidos.classList.remove("abierto");
+      modalQrPedidos.setAttribute("aria-hidden", "true");
+      abrirQrPedidos.focus();
+    }
+    abrirQrPedidos.addEventListener("click", mostrarQrPedidos);
+    cerrarQrPedidos.addEventListener("click", ocultarQrPedidos);
+    modalQrPedidos.addEventListener("click", function(e) {
+      if (e.target === modalQrPedidos) ocultarQrPedidos();
+    });
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && modalQrPedidos.classList.contains("abierto")) ocultarQrPedidos();
+    });
+
+    function abrirVentanaFormulario(e) {
+      e.preventDefault();
+      const url = new URL("./pedido-musical.html", window.location.href).href;
+      const popup = window.open(url, "pedidoMusicalRadioNuevaVida",
+        "popup=yes,width=420,height=720,resizable=yes,scrollbars=yes");
+      // Si el navegador bloquea ventanas emergentes, abrimos en la pestaña actual.
+      if (!popup) window.location.href = url;
+    }
+    document.getElementById("enlace-formulario-pedidos").addEventListener("click", abrirVentanaFormulario);
+    document.getElementById("abrir-formulario-pedidos").addEventListener("click", abrirVentanaFormulario);
   </script>
 
   <!-- (NO cargamos shoutcast-metadata-parser porque estaba roto) -->
