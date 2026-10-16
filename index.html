@@ -56,7 +56,7 @@
   <!-- ACCESO FLOTANTE AL QR DE PEDIDOS MUSICALES -->
   <div class="qr-pedidos" id="acceso-pedidos">
     <button type="button" id="abrir-qr-pedidos" aria-label="Mostrar código QR para pedidos musicales" title="Escanear para pedir canciones">
-      <img src="qr-pedidos.png" alt="Mostrar código QR de pedidos musicales" loading="lazy">
+      <img src="qr-pedidos-musical.png" alt="Mostrar código QR de pedidos musicales" loading="lazy">
     </button>
     <p>Escaneá el QR para pedir una canción o <a href="./pedido-musical.html" id="enlace-formulario-pedidos">abrí el formulario aquí</a>.</p>
   </div>
@@ -64,7 +64,7 @@
     <div class="qr-modal-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-qr-pedidos">
       <button type="button" class="qr-modal-cerrar" id="cerrar-qr-pedidos" aria-label="Cerrar">×</button>
       <h2 id="titulo-qr-pedidos">Pedidos musicales</h2>
-      <img src="qr-pedidos.png" alt="Código QR para abrir el formulario de pedidos">
+      <img src="qr-pedidos-musical.png" alt="Código QR para abrir el formulario de pedidos">
       <p>Escaneá este código con la cámara de tu celular.</p>
       <a href="./pedido-musical.html" id="abrir-formulario-pedidos">O abrí el formulario aquí</a>
     </div>
@@ -380,6 +380,5 @@
       //   .catch(err => console.error('Error al registrar SW:', err));
     }
   </script>
-  <script src="formulario-envio.js"></script>
 </body>
 </html>
