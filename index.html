@@ -17,12 +17,6 @@
     <h1>RADIO NUEVA VIDA</h1>
     <p class="subtitulo">radio cristiana online</p>
 
-    <div class="qr-pedidos">
-      <a href="./pedido-musical.html" aria-label="Abrir formulario de pedidos musicales">
-        <img src="qr-pedidos.png" alt="Código QR para pedir canciones" loading="lazy">
-      </a>
-      <p>🎵 ¿Querés pedir una canción? Escaneá el QR o <a href="./pedido-musical.html">hacé clic aquí</a>.</p>
-    </div>
 
     <button id="playPauseBtn" class="play-button" aria-label="Reproducir/Pausar">
       <svg id="iconoPlay" viewBox="0 0 64 64" width="48" height="48" fill="white">
@@ -57,6 +51,14 @@
     <!-- audio: URL del stream actualizada -->
     <audio id="audio" src="https://usa16.fastcast4u.com/proxy/estaciononline?mp=/1" preload="none"></audio>
 
+  </div>
+
+  <!-- ACCESO FLOTANTE AL QR DE PEDIDOS MUSICALES -->
+  <div class="qr-pedidos">
+    <a href="./pedido-musical.html" aria-label="Abrir formulario de pedidos musicales" title="Pedir una canción">
+      <img src="qr-pedidos.png" alt="QR para pedidos musicales" loading="lazy">
+    </a>
+    <p>Escaneá el QR para pedir una canción, o <a href="./pedido-musical.html">abrí el formulario aquí</a>.</p>
   </div>
 
   <!-- ICONO FLOTANTE DE CONTACTO (usa una imagen pequeña para integrar) -->
@@ -112,6 +114,64 @@
     .qr-pedidos p a { color: #ffd166; font-weight: 700; }
     @media (max-width: 380px) {
       .qr-pedidos img { width: 124px; height: 124px; }
+    }
+
+    .qr-pedidos {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 74px;
+      text-align: center;
+      color: #fff;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    .qr-pedidos > a:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      padding: 4px;
+      background: #204a57;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0,0,0,.3);
+      transition: transform .3s ease, background-color .3s ease;
+    }
+    .qr-pedidos > a:first-child:hover {
+      background: #2f6775;
+      transform: scale(1.06);
+    }
+    .qr-pedidos img {
+      display: block;
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    .qr-pedidos p {
+      display: none;
+      position: absolute;
+      left: 0;
+      bottom: 62px;
+      width: 180px;
+      margin: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #002b36;
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.35;
+      box-shadow: 0 3px 12px rgba(0,0,0,.3);
+    }
+    .qr-pedidos:focus-within p, .qr-pedidos:hover p { display: block; }
+    .qr-pedidos p a { color: #ffd166; font-weight: 700; }
+    @media (max-width: 480px) {
+      .qr-pedidos { bottom: 25px; left: 25px; }
     }
 
     .boton-contacto {
