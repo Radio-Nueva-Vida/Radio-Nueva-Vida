@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B2531">
+  <meta name="description" content="Radio Nueva Vida: música, inspiración y esperanza.">
+
+  <title>Radio Nueva Vida</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --background: #0b2531;
+      --gold: #c5a059;
+      --cream: #f3efe0;
+      --muted: #a0b2ba;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at 50% 30%, #103442 0, transparent 48%),
+        var(--background);
+    }
+
+    .serif {
+      font-family: "Playfair Display", Georgia, serif;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .nav-link {
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible {
+      color: var(--gold);
+    }
+
+    .station-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .player-card {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), transparent 45%),
+        rgba(3, 20, 27, .72);
+      border: 1px solid rgba(197, 160, 89, .6);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+      backdrop-filter: blur(12px);
+    }
+
+    .album-cover {
+      width: 76px;
+      height: 76px;
+      flex: 0 0 76px;
+      object-fit: cover;
+      border: 1px solid rgba(243, 239, 224, .25);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .external-player img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      transition: transform .2s ease, filter .2s ease;
+    }
+
+    .external-player:hover img {
+      transform: scale(1.12);
+      filter: brightness(1.2);
+    }
+
+    .info-card {
+      background: rgba(7, 31, 41, .72);
+      border: 1px solid rgba(197, 160, 89, .85);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .17);
+    }
+
+    .hero-image {
+      background-image:
+        linear-gradient(90deg, rgba(45, 35, 23, .12), rgba(255, 244, 217, .23)),
+        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85");
+      background-size: cover;
+      background-position: center;
+      background-color: #d6c3a1;
+    }
+
+    .banner-copy {
+      background: rgba(250, 242, 224, .72);
+      backdrop-filter: blur(2px);
+      color: #17232a;
+    }
+
+    .wave-bar {
+      width: 4px;
+      height: var(--height);
+      min-height: 4px;
+      border: 1px solid rgba(243, 239, 224, .8);
+      background: rgba(197, 160, 89, .42);
+      transform-origin: bottom;
+      transition: transform .3s ease;
+    }
+
+    .playing .wave-bar {
+      animation: wave 850ms ease-in-out infinite alternate;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes wave {
+      from { transform: scaleY(.35); }
+      to { transform: scaleY(1); }
+    }
+
+    .icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+
+    .icon-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .focus-ring:focus-visible {
+      outline: 2px solid #e7cb86;
+      outline-offset: 4px;
+    }
+
+    .qr-dialog {
+      width: min(92vw, 360px);
+      max-height: calc(100dvh - 2rem);
+      overflow: auto;
+      color: var(--cream);
+    }
+
+    .contact-button-image {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, .72);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen border-b-2 border-[#c5a059]/70">
+  <!-- Cabecera -->
+  <header class="mx-auto max-w-[1440px] px-5 py-6 sm:px-8 lg:px-12">
+    <div class="flex flex-wrap items-center justify-between gap-5 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+      <nav aria-label="Navegación principal" class="order-2 w-full lg:order-1 lg:w-auto">
+        <ul class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-[10px] font-medium tracking-[.08em] sm:text-xs lg:justify-start">
+          <li><a class="nav-link focus-ring gold" href="#inicio">INICIO</a></li>
+          <li aria-hidden="true" class="text-[#c5a059]">|</li>
+          <li><a class="nav-link focus-ring" href="#programacion">PROGRAMACIÓN</a></li>
+          <li aria-hidden="true" class="text-[#c5a059]">|</li>
+          <li><a class="nav-link focus-ring" href="#nosotros">SOBRE NOSOTROS</a></li>
+        </ul>
+      </nav>
+
+      <a href="#inicio" class="serif focus-ring order-1 flex items-center gap-2 text-xl tracking-[.04em] text-[#d8bb7e] sm:text-2xl lg:order-2 lg:text-3xl" aria-label="Radio Nueva Vida, inicio">
+        <img src="logo-nueva-vida.png" alt="" class="station-logo">
+        <span>RADIO NUEVA VIDA</span>
+      </a>
+
+      <div class="order-1 flex items-center gap-4 lg:order-3 lg:justify-end lg:gap-7">
+        <nav aria-label="Enlaces adicionales" class="hidden sm:block">
+          <ul class="flex items-center gap-3 text-[10px] font-medium tracking-[.08em] sm:text-xs">
+            <li><a class="nav-link focus-ring" href="#artistas">ARTISTAS CRISTIANOS</a></li>
+            <li aria-hidden="true" class="text-[#c5a059]">|</li>
+            <li><a class="nav-link focus-ring" href="#contacto">CONTACTO</a></li>
+          </ul>
+        </nav>
+        <i data-lucide="mic-vocal" class="h-6 w-6 text-[#c5a059]" aria-hidden="true"></i>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio" class="mx-auto max-w-[1440px] px-5 pb-28 pt-4 sm:px-8 lg:px-12 lg:pt-8">
+    <!-- Sección principal -->
+    <section class="grid items-stretch gap-8 lg:grid-cols-[.85fr_1.45fr] lg:gap-12">
+      <!-- Reproductor -->
+      <div id="artistas" class="flex flex-col items-center justify-center py-4 text-center">
+        <p class="mb-3 text-[10px] font-semibold uppercase tracking-[.25em] text-[#c5a059]">
+          Música y esperanza para tu día
+        </p>
+
+        <h1 class="serif text-4xl leading-[1.1] text-white sm:text-5xl xl:text-[3.4rem]">
+          REPRODUCTOR<br>EN VIVO
+        </h1>
+
+        <div class="player-card mt-6 w-full max-w-[440px] rounded-xl p-4 sm:p-5">
+          <audio id="radio-audio" preload="none">
+            <source src="https://usa16.fastcast4u.com/proxy/estaciononline?mp=/1" type="audio/mpeg">
+            Tu navegador no admite audio.
+          </audio>
+
+          <div class="flex items-center gap-4 text-left">
+            <img id="album-art" class="album-cover" src="coversgospelgeneric.png" alt="Carátula de la canción actual">
+            <div class="min-w-0 flex-1">
+              <p id="track-title" class="truncate text-sm font-semibold text-white" aria-live="polite">
+                Radio Nueva Vida en directo
+              </p>
+              <p id="track-meta" class="mt-1 truncate text-[11px] uppercase tracking-wide text-[#d1b77d]" aria-live="polite">
+                ARTISTA: Radio Nueva Vida | CANCIÓN: Música de esperanza
+              </p>
+              <p id="connection-status" class="mt-2 text-[10px] font-semibold tracking-[.16em] text-[#e1c787]">
+                TRANSMISIÓN EN VIVO
+              </p>
+            </div>
+            <button
+              id="mute-button"
+              type="button"
+              class="icon-button focus-ring rounded text-[#d8bb7e]"
+              aria-label="Silenciar"
+              aria-pressed="false"
+            >
+              <i data-lucide="volume-2" class="h-5 w-5" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="mt-5 flex items-center gap-4">
+            <button
+              id="play-button"
+              type="button"
+              class="icon-button focus-ring h-12 w-12 shrink-0 rounded-full bg-gradient-to-br from-[#ead398] to-[#b48a3e] text-[#10232b] shadow-lg"
+              aria-label="Escuchar radio"
+              aria-pressed="false"
+            >
+              <i data-lucide="play" class="h-5 w-5 fill-current" aria-hidden="true"></i>
+            </button>
+
+            <div
+              id="waveform"
+              class="flex h-12 min-w-0 flex-1 items-end justify-center gap-[3px] overflow-hidden"
+              aria-hidden="true"
+            ></div>
+          </div>
+
+          <div class="mt-4 flex items-center gap-3">
+            <i data-lucide="volume-1" class="h-4 w-4 shrink-0 text-[#d8bb7e]" aria-hidden="true"></i>
+            <label class="sr-only" for="volume-slider">Volumen</label>
+            <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.8"
+              class="h-1 w-full cursor-pointer accent-[#c5a059]" aria-label="Volumen">
+          </div>
+
+          <div class="mt-5 border-t border-white/15 pt-4">
+            <p class="mb-3 text-[10px] font-semibold uppercase tracking-[.18em] text-[#a0b2ba]">
+              Escúchanos en otros reproductores
+            </p>
+            <div class="flex items-center justify-center gap-5">
+              <a class="external-player focus-ring" href="https://usa15.fastcast4u.com/tunein/estaciononline.pls" download aria-label="Abrir con Winamp">
+                <img src="icon-winamp.png" alt="Winamp">
+              </a>
+              <a class="external-player focus-ring" href="https://usa15.fastcast4u.com/tunein/estaciononline.asx" download aria-label="Abrir con Windows Media Player">
+                <img src="icon-wmp.png" alt="Windows Media Player">
+              </a>
+              <a class="external-player focus-ring" href="https://usa15.fastcast4u.com/tunein/estaciononline.qtl" download aria-label="Abrir con QuickTime">
+                <img src="quicktime-icon.png" alt="QuickTime">
+              </a>
+              <a class="external-player focus-ring" href="https://usa16.fastcast4u.com/proxy/estaciononline?mp=/1" target="_blank" rel="noopener noreferrer" aria-label="Abrir transmisión en VLC u otro reproductor">
+                <img src="icon-vlc.png" alt="VLC">
+              </a>
+            </div>
+          </div>
+
+          <p class="mt-4 text-center text-xs text-white/75">
+            <time id="clock">--:--</time>
+            <span class="mx-1">·</span>
+            <span>EN DIRECTO</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Banner -->
+      <div
+        id="nosotros"
+        class="hero-image relative flex min-h-[330px] items-center justify-center overflow-hidden rounded-md p-5 sm:min-h-[380px] lg:justify-end lg:p-10"
+      >
+        <div class="banner-copy max-w-md rounded-sm px-6 py-7 text-center shadow-xl sm:px-9">
+          <h2 class="serif text-3xl leading-tight sm:text-4xl">
+            TU ESPACIO DE<br>INSPIRACIÓN
+          </h2>
+          <p class="mt-3 text-sm leading-relaxed sm:text-base">
+            Encuentra paz y propósito en cada momento. Una conexión profunda.
+          </p>
+          <a
+            href="#contacto"
+            class="focus-ring mt-5 inline-flex rounded-full border border-[#c5a059] bg-[#0b2531] px-7 py-2 text-xs font-medium tracking-[.12em] text-[#f3efe0] shadow-md transition hover:bg-[#17404f]"
+          >
+            CONÉCTATE
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarjetas -->
+    <section aria-label="Información de la emisora" class="mx-auto mt-8 grid max-w-5xl gap-5 md:grid-cols-3">
+      <article id="programacion" class="info-card rounded-xl p-6">
+        <h2 class="text-center text-base font-medium tracking-wide text-[#f3efe0]">
+          PROGRAMACIÓN EN VIVO
+        </h2>
+
+        <ul class="mt-4 text-sm">
+          <li class="flex items-center justify-between gap-3 border-b border-white/25 py-2.5">
+            <span>10:00 AM - Palabras de Vida</span>
+            <i data-lucide="mic" class="h-4 w-4 shrink-0 text-[#c5a059]" aria-hidden="true"></i>
+          </li>
+          <li class="flex items-center justify-between gap-3 border-b border-white/25 py-2.5">
+            <span>12:00 PM - Melodías del Alma</span>
+            <i data-lucide="music-2" class="h-4 w-4 shrink-0 text-[#c5a059]" aria-hidden="true"></i>
+          </li>
+          <li class="flex items-center justify-between gap-3 py-2.5">
+            <span>02:00 PM - Encuentro de Vida</span>
+            <i data-lucide="radio" class="h-4 w-4 shrink-0 text-[#c5a059]" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </article>
+
+      <article class="info-card flex flex-col items-center justify-center rounded-xl p-6 text-center">
+        <h2 class="text-base font-medium tracking-wide">VERSÍCULO DEL DÍA</h2>
+        <blockquote class="serif mt-5 text-2xl italic leading-snug text-white">
+          “El Señor es mi pastor,<br>nada me faltará.”
+        </blockquote>
+        <p class="mt-4 text-sm text-[#d8bb7e]">Salmo 23:1</p>
+      </article>
+
+      <article id="contacto" class="info-card flex flex-col items-center justify-center rounded-xl p-6 text-center">
+        <h2 class="text-base font-medium tracking-wide">CONECTA</h2>
+
+        <div class="mt-6 flex items-center gap-4">
+          <!-- Sustituye estas URL por los perfiles reales de la emisora. -->
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
+             class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
+             aria-label="Facebook (abre en otra pestaña)">
+            <i data-lucide="facebook" class="h-5 w-5" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+             class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
+             aria-label="Instagram (abre en otra pestaña)">
+            <i data-lucide="instagram" class="h-5 w-5" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"
+             class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
+             aria-label="YouTube (abre en otra pestaña)">
+            <i data-lucide="youtube" class="h-5 w-5" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <button type="button" class="open-contact focus-ring mt-5 text-sm underline underline-offset-4 hover:text-[#d8bb7e]">
+          Escríbenos
+        </button>
+      </article>
+    </section>
+  </main>
+
+  <div class="fixed bottom-4 left-4 z-20 sm:bottom-5 sm:left-5">
+    <button id="open-orders-qr" type="button" class="focus-ring rounded-lg border border-[#c5a059] bg-[#e2ca91] p-1.5 shadow-xl transition hover:scale-105" aria-label="Mostrar QR para pedidos musicales" title="Pide una canción">
+      <img src="qr-pedidos-musical.png" alt="QR para pedidos musicales" width="56" height="56" class="h-12 w-12 sm:h-14 sm:w-14">
+    </button>
+  </div>
+
+  <button
+    type="button"
+    class="open-contact icon-button focus-ring fixed bottom-4 right-4 z-20 h-14 w-14 rounded-lg border border-[#c5a059] bg-[#173844] text-[#e5cc91] shadow-xl hover:bg-[#24505d] sm:bottom-5 sm:right-5"
+    aria-label="Abrir contacto"
+  >
+    <img src="icono-contacto.png" alt="" class="contact-button-image">
+  </button>
+
+  <dialog id="orders-qr-dialog" aria-labelledby="orders-qr-title" class="qr-dialog m-auto rounded-xl border border-[#c5a059] bg-[#0b2531] p-6 text-center shadow-2xl">
+    <button id="close-orders-qr" type="button" class="icon-button focus-ring float-right rounded text-[#d8bb7e]" aria-label="Cerrar">
+      <i data-lucide="x" class="h-6 w-6" aria-hidden="true"></i>
+    </button>
+    <h2 id="orders-qr-title" class="serif mb-4 text-2xl text-[#e1c787]">Pedidos musicales</h2>
+    <img src="qr-pedidos-musical.png" alt="Código QR para abrir el formulario de pedidos musicales" class="mx-auto mb-4 h-56 w-56 rounded-lg bg-white p-2">
+    <p class="mb-4 text-sm text-[#a0b2ba]">Escanea el código para pedir una canción o un saludo.</p>
+    <a href="./pedido-musical.html" class="focus-ring inline-flex rounded-full border border-[#c5a059] px-5 py-2 text-sm text-[#f3efe0] transition hover:bg-[#17404f]">
+      Abrir formulario de pedidos
+    </a>
+  </dialog>
+
+  <!-- Modal de contacto -->
+  <dialog id="contact-dialog" aria-labelledby="contact-title" class="m-auto w-[calc(100%-2rem)] max-w-md rounded-xl border border-[#c5a059] bg-[#0b2531] p-0 text-[#f3efe0] shadow-2xl">
+    <div class="p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[.2em] text-[#c5a059]">Radio Nueva Vida</p>
+          <h2 id="contact-title" class="serif mt-2 text-3xl">Escríbenos</h2>
+        </div>
+        <button id="close-contact" type="button" class="icon-button focus-ring rounded text-[#d8bb7e]" aria-label="Cerrar ventana">
+          <i data-lucide="x" class="h-6 w-6" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <p class="mt-4 text-sm leading-relaxed text-[#a0b2ba]">
+        Nos encantará recibir tu mensaje. Completa los campos para abrir tu aplicación de correo.
+      </p>
+
+      <form id="contact-form" class="mt-6 space-y-4">
+        <div>
+          <label for="name" class="mb-1.5 block text-sm">Nombre</label>
+          <input id="name" name="name" required maxlength="100"
+            class="focus-ring w-full rounded-md border border-[#c5a059]/50 bg-[#071d26] px-3 py-2.5 text-white">
+        </div>
+        <div>
+          <label for="message" class="mb-1.5 block text-sm">Mensaje</label>
+          <textarea id="message" name="message" required rows="4" maxlength="2000"
+            class="focus-ring w-full resize-y rounded-md border border-[#c5a059]/50 bg-[#071d26] px-3 py-2.5 text-white"></textarea>
+        </div>
+        <button type="submit"
+          class="focus-ring w-full rounded-full bg-[#c5a059] px-5 py-3 text-sm font-semibold text-[#0b2531] transition hover:bg-[#e1c787]">
+          Abrir correo
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Iconos -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    
+  const audio = document.getElementById("radio-audio");
+  const playButton = document.getElementById("play-button");
+  const muteButton = document.getElementById("mute-button");
+  const volumeSlider = document.getElementById("volume-slider");
+  const waveform = document.getElementById("waveform");
+  const trackTitle = document.getElementById("track-title");
+  const trackMeta = document.getElementById("track-meta");
+  const connectionStatus = document.getElementById("connection-status");
+  const albumArt = document.getElementById("album-art");
+  const fallbackCover = "coversgospelgeneric.png";
+  const metadataUrl = "https://server.streamcasthd.com/cp/get_info.php?p=8626";
+  let lastArtworkLookup = "";
+
+  function refreshIcons() {
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // Crear las barras del visualizador.
+  const heights = [
+    10, 17, 25, 35, 46, 33, 22, 14, 10, 24, 30, 18, 28,
+    39, 45, 32, 22, 17, 25, 37, 48, 34, 23, 16, 12, 8
+  ];
+
+  heights.forEach((height, index) => {
+    const bar = document.createElement("span");
+    bar.className = "wave-bar";
+    bar.style.setProperty("--height", height + "px");
+    bar.style.setProperty("--delay", -(index * 65) + "ms");
+    waveform.appendChild(bar);
+  });
+
+  function updatePlayer() {
+    const playing = !audio.paused;
+
+    waveform.classList.toggle("playing", playing);
+    playButton.setAttribute("aria-pressed", String(playing));
+    playButton.setAttribute(
+      "aria-label",
+      playing ? "Pausar radio" : "Escuchar radio"
+    );
+
+    playButton.innerHTML = playing
+      ? '<i data-lucide="pause" class="h-5 w-5 fill-current" aria-hidden="true"></i>'
+      : '<i data-lucide="play" class="h-5 w-5 fill-current" aria-hidden="true"></i>';
+
+    refreshIcons();
+  }
+
+  function setAlbumArt(url) {
+    albumArt.onerror = () => {
+      albumArt.onerror = null;
+      albumArt.src = fallbackCover;
+    };
+    albumArt.src = url;
+  }
+
+  async function findAlbumArt(artist, title) {
+    const query = encodeURIComponent(`${artist} ${title}`);
+    const response = await fetch(`https://itunes.apple.com/search?term=${query}&limit=1`);
+    if (!response.ok) throw new Error(`iTunes respondió ${response.status}`);
+
+    const result = await response.json();
+    const artworkUrl = result.results?.[0]?.artworkUrl100;
+    return typeof artworkUrl === "string"
+      ? artworkUrl.replace("100x100", "512x512")
+      : fallbackCover;
+  }
+
+  async function updateTrackMetadata() {
+    try {
+      const response = await fetch(metadataUrl, { cache: "no-store" });
+      if (!response.ok) throw new Error(`SonicPanel respondió ${response.status}`);
+
+      const data = await response.json();
+      const rawTitle = typeof data.title === "string" ? data.title.trim() : "";
+      if (!rawTitle) throw new Error("SonicPanel no devolvió el título actual");
+
+      const cleanedTitle = rawTitle.replace(/^\d+\s*/, "");
+      const parts = cleanedTitle.split(/\s+-\s+/);
+      const artist = parts.length > 1 ? parts.shift().trim() : "Radio Nueva Vida";
+      const title = parts.join(" - ").trim() || cleanedTitle;
+      const trackKey = `${artist} - ${title}`.toLowerCase();
+      const providedArt = typeof data.art === "string" ? data.art.trim() : "";
+      const hasProvidedArt = providedArt && providedArt !== "Sin imagen" && !providedArt.includes("noimage");
+
+      trackTitle.textContent = title;
+      trackMeta.textContent = `ARTISTA: ${artist} | CANCIÓN: ${title}`;
+
+      if (hasProvidedArt) {
+        lastArtworkLookup = trackKey;
+        setAlbumArt(providedArt);
+      } else if (lastArtworkLookup !== trackKey) {
+        lastArtworkLookup = trackKey;
+        try {
+          setAlbumArt(await findAlbumArt(artist, title));
+        } catch (error) {
+          console.warn("No se pudo buscar la carátula; se usará la imagen genérica.", error);
+          setAlbumArt(fallbackCover);
+        }
+      }
+    } catch (error) {
+      console.warn("No se pudieron actualizar los datos de la canción.", error);
+    }
+  }
+
+  playButton.addEventListener("click", async () => {
+    if (!audio.paused) {
+      audio.pause();
+      return;
+    }
+
+    connectionStatus.textContent = "CONECTANDO...";
+
+    try {
+      await audio.play();
+    } catch (error) {
+      console.error("No se pudo reproducir la radio:", error);
+      connectionStatus.textContent = "NO SE PUDO CONECTAR";
+      updatePlayer();
+    }
+  });
+
+  audio.addEventListener("playing", () => {
+    connectionStatus.textContent = "EN DIRECTO";
+    updatePlayer();
+  });
+
+  audio.addEventListener("waiting", () => {
+    connectionStatus.textContent = "CARGANDO TRANSMISIÓN...";
+  });
+
+  audio.addEventListener("pause", () => {
+    connectionStatus.textContent = "TRANSMISIÓN PAUSADA";
+    updatePlayer();
+  });
+
+  audio.addEventListener("error", () => {
+    connectionStatus.textContent = "TRANSMISIÓN NO DISPONIBLE";
+    updatePlayer();
+  });
+
+  muteButton.addEventListener("click", () => {
+    audio.muted = !audio.muted;
+
+    muteButton.setAttribute("aria-pressed", String(audio.muted));
+    muteButton.setAttribute(
+      "aria-label",
+      audio.muted ? "Activar sonido" : "Silenciar"
+    );
+
+    muteButton.innerHTML = audio.muted
+      ? '<i data-lucide="volume-x" class="h-5 w-5" aria-hidden="true"></i>'
+      : '<i data-lucide="volume-2" class="h-5 w-5" aria-hidden="true"></i>';
+
+    refreshIcons();
+  });
+
+  volumeSlider.addEventListener("input", () => {
+    audio.volume = Number(volumeSlider.value);
+    audio.muted = false;
+    muteButton.setAttribute("aria-pressed", "false");
+    muteButton.setAttribute("aria-label", "Silenciar");
+    muteButton.innerHTML = '<i data-lucide="volume-2" class="h-5 w-5" aria-hidden="true"></i>';
+    refreshIcons();
+  });
+
+  audio.volume = Number(volumeSlider.value);
+
+  function updateClock() {
+    const now = new Date();
+    const clock = document.getElementById("clock");
+
+    clock.textContent = new Intl.DateTimeFormat("es", {
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(now);
+
+    clock.dateTime = now.toISOString();
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+  updateTrackMetadata();
+  setInterval(updateTrackMetadata, 30000);
+
+  refreshIcons();
+
+    const ordersQrDialog = document.getElementById("orders-qr-dialog");
+    document.getElementById("open-orders-qr").addEventListener("click", () => ordersQrDialog.showModal());
+    document.getElementById("close-orders-qr").addEventListener("click", () => ordersQrDialog.close());
+    ordersQrDialog.addEventListener("click", event => {
+      if (event.target === ordersQrDialog) ordersQrDialog.close();
+    });
+
+    // Contacto mediante la aplicación de correo del usuario.
+    const dialog = document.getElementById("contact-dialog");
+    document.querySelectorAll(".open-contact").forEach(button => {
+      button.addEventListener("click", () => dialog.showModal());
+    });
+
+    document.getElementById("close-contact").addEventListener("click", () => dialog.close());
+
+    dialog.addEventListener("click", event => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    document.getElementById("contact-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
+      if (!name || !message) return;
+
+      // Sustituye esta dirección por el correo real de la emisora.
+      const recipient = "contacto@example.com";
+      const subject = encodeURIComponent("Mensaje para Radio Nueva Vida");
+      const body = encodeURIComponent(`Nombre: ${name}\n\n${message}`);
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+      dialog.close();
+    });
+
+    refreshIcons();
+  </script>
+</body>
+</html>
