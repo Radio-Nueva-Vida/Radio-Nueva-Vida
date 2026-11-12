@@ -34,7 +34,7 @@
       font-family: "Tahoma", sans-serif;
       color: var(--cream);
       background:
-        radial-gradient(circle at 70% 40%, #103442 0, transparent 78%),
+        radial-gradient(circle at 70% 40%, #103442 0, transparent 48%),
         var(--background);
     }
 
@@ -368,6 +368,14 @@
              class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
              aria-label="Facebook (abre en otra pestaña)">
             <i data-lucide="facebook" class="h-5 w-5" aria-hidden="true"></i>
+             refreshIcons();
+
+    const ordersQrDialog = document.getElementById("orders-qr-dialog");
+    document.getElementById("open-orders-qr").addEventListener("click", () => ordersQrDialog.showModal());
+    document.getElementById("close-orders-qr").addEventListener("click", () => ordersQrDialog.close());
+    ordersQrDialog.addEventListener("click", event => {
+      if (event.target === ordersQrDialog) ordersQrDialog.close();
+    });
           </a>
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
              class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
@@ -668,7 +676,7 @@
       if (!name || !message) return;
 
       // Sustituye esta dirección por el correo real de la emisora.
-      const recipient = "contacto@example.com";
+      const recipient = "radionuevavida@hotmail.com";
       const subject = encodeURIComponent("Mensaje para Radio Nueva Vida");
       const body = encodeURIComponent(`Nombre: ${name}\n\n${message}`);
       window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
