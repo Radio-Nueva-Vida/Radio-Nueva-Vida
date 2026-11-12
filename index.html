@@ -368,15 +368,8 @@
              class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
              aria-label="Facebook (abre en otra pestaña)">
             <i data-lucide="facebook" class="h-5 w-5" aria-hidden="true"></i>
-             refreshIcons();
-
-    const ordersQrDialog = document.getElementById("orders-qr-dialog");
-    document.getElementById("open-orders-qr").addEventListener("click", () => ordersQrDialog.showModal());
-    document.getElementById("close-orders-qr").addEventListener("click", () => ordersQrDialog.close());
-    ordersQrDialog.addEventListener("click", event => {
-      if (event.target === ordersQrDialog) ordersQrDialog.close();
-    });
           </a>
+          
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
              class="icon-button focus-ring h-10 w-10 rounded-full bg-white/10 text-[#f3efe0] hover:bg-[#c5a059] hover:text-[#0b2531]"
              aria-label="Instagram (abre en otra pestaña)">
