@@ -236,7 +236,7 @@
                 Radio Nueva Vida en directo
               </p>
               <p id="track-meta" class="mt-1 truncate text-[11px] uppercase tracking-wide text-[#d1b77d]" aria-live="polite">
-                Radio Nueva Vida |  Desde Wanda-Misiones-Argentina
+                Radio Nueva Vida |  Desde Wanda-Misiones-Argentina  |
               </p>
               <p id="connection-status" class="mt-2 text-[10px] font-semibold tracking-[.16em] text-[#e1c787]">
                 TRANSMISIÓN EN VIVO
@@ -353,11 +353,12 @@
 
       <article class="info-card flex flex-col items-center justify-center rounded-xl p-6 text-center">
         <h2 class="text-base font-medium tracking-wide">VERSÍCULO DEL DÍA</h2>
-        <blockquote class="serif mt-5 text-2xl italic leading-snug text-white">
-          “El Señor es mi pastor,<br>nada me faltará.”
+        <!-- Agregamos los ID aquí para que JavaScript sepa dónde escribir -->
+        <blockquote class="serif mt-5 text-2xl italic leading-snug text-white" id="texto-versiculo">
+          Cargando...
         </blockquote>
-        <p class="mt-4 text-sm text-[#d8bb7e]">Salmo 23:1</p>
-      </article>
+        <p class="mt-4 text-sm text-[#d8bb7e]" id="cita-versiculo"></p>
+</article>
 
       <article id="contacto" class="info-card flex flex-col items-center justify-center rounded-xl p-4 text-center">
         <h2 class="text-base font-medium tracking-wide">CONÉCTATE</h2>
@@ -655,5 +656,35 @@
 
     refreshIcons();
   </script>
-</body>
+  <script>
+    const versiculos = [
+        { texto: "El Señor es mi pastor, nada me faltará.", cita: "Salmo 23:1" },
+        { texto: "Todo lo puedo en Cristo que me fortalece.", cita: "Filipenses 4:13" },
+        { texto: "Jehová es mi luz y mi salvación; ¿a quién temeré?", cita: "Salmos 27:1" },
+        { texto: "Confía en Jehová con todo tu corazón, y no te apoyes en tu propia prudencia.", cita: "Proverbios 3:5" },
+        { texto: "El Señor es mi fortaleza y mi escudo.", cita: "Salmos 28:7" },
+        { texto: "Echa sobre Jehová tu carga, y él te sustentará.", cita: "Salmos 55:22" },
+        { texto: "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.", cita: "Salmos 119:105" },
+        { texto: "Clama a mí, y yo te responderé...", cita: "Jeremías 33:3" },
+        { texto: "Cercano está Jehová a los quebrantados de corazón.", cita: "Salmos 34:18" },
+        { texto: "El Señor está cerca. Por nada estéis afanosos.", cita: "Filipenses 4:5-6" }
+        // Aquí puedes seguir agregando más versículos hacia abajo con la misma estructura
+    ];
+
+    function cargarVersiculoDelDia() {
+        const hoy = new Date();
+        const inicioAnio = new Date(hoy.getFullYear(), 0, 0);
+        const diferencia = hoy - inicioAnio;
+        const unDia = 1000 * 60 * 60 * 24;
+        const diaDelAnio = Math.floor(diferencia / unDia);
+
+        const indice = diaDelAnio % versiculos.length;
+
+        document.getElementById("texto-versiculo").innerText = `“${versiculos[indice].texto}”`;
+        document.getElementById("cita-versiculo").innerText = versiculos[indice].cita;
+    }
+
+    cargarVersiculoDelDia();
+  </script>
+ </body>
 </html>
